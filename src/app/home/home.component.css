@@ -1,0 +1,13 @@
+.ap-separator{
+    opacity:0.9;
+    background-color: #222222;
+    height: 80px;
+  }
+  .ap-separator p{
+    padding-top: 12px;
+    color:white;
+    opacity:0.9;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 3em;
+    opacity:1;
+  }

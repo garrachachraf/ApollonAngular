@@ -1,0 +1,44 @@
+
+<div *ngIf="showroom" class="card-list">
+  <h2 class="ui center aligned header">
+    {{showroom.title}}
+  </h2>
+
+  <div class="ui four cards special">
+    <app-artwork-detail *ngFor="let artwork of showroom.artWorks" [artwork]="artwork" class="card" (onSelected)="onSelectArtwork($event)"></app-artwork-detail>
+  </div>
+  <div class="ui four cards special">
+    <app-artwork-detail *ngFor="let artwork of showroom.artWorks" [artwork]="artwork" class="card" (onSelected)="onSelectArtwork($event)"></app-artwork-detail>
+  </div>
+  <div class="ui four cards special">
+    <app-artwork-detail *ngFor="let artwork of showroom.artWorks" [artwork]="artwork" class="card" (onSelected)="onSelectArtwork($event)"></app-artwork-detail>
+  </div>
+</div>
+
+<!-- Artwork detail Modal -->
+<div *ngIf="selectedArtwork" class="ui modal" id="artwork-detail-modal">
+  <i class="close icon"></i>
+  <div class="header">
+    {{selectedArtwork.title}}
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img [src]="selectedArtwork.mediaPath">
+    </div>
+    <div class="description">
+      <div class="ui header">We've auto-chosen a profile image for you.</div>
+      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+      <p>Is it okay to use this photo?</p>
+      <app-rating></app-rating>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
