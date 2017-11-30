@@ -1,0 +1,13 @@
+.star-rating:hover{
+    color: #F0AD4E;
+      cursor: pointer;
+  }
+  .star-rated{
+    color : #F0AD4E;
+    cursor: pointer;
+  }
+  .greyOut{
+    opacity: 0.3;
+    color : #F0AD4E;
+  }
+  

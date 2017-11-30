@@ -1,3 +1,6 @@
+import { AuthenticationService } from './authentication/authentication.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './authentication/token.interceptor';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,7 +40,14 @@ const routes : Routes = [
     HttpModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+  },
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

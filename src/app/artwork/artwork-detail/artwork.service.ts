@@ -16,4 +16,5 @@ export class ArtworkService extends DataService<Showroom>{
   getArtworks(page:number): Observable<Artwork[]> {
    return this.http.get<Artwork[]>(AppSettings.API_ENDPOINT+'ArtWork/findall/'+page);
   }
+
 }
