@@ -11,10 +11,10 @@ export class AuthenticationService {
     constructor(private http: Http) {
     }
 
-    login(username: string, password: string) {
+    login(userCredentials : any) {
         let body = new URLSearchParams();
-        body.set('login', username);
-        body.set('password', password);
+        body.set('login', userCredentials.username);
+        body.set('password', userCredentials.password);
         return this.http.post(AppSettings.API_ENDPOINT + 'users/login', body.toString(), { headers: this.headers })
             .map(response => {
                 // login successful if there's a jwt token in the response
@@ -40,7 +40,7 @@ export class AuthenticationService {
     getToken() {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            return currentUser.token;
+            return currentUser;
         }
     }
 }

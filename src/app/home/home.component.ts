@@ -1,5 +1,6 @@
+import { Artwork } from './../shared/model/artwork.model';
 import { ArtworkService } from './../artwork/artwork-detail/artwork.service';
-import { Artwork } from './../../New Folder/artwork.model';
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({

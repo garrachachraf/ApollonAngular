@@ -16,8 +16,8 @@ export class AuthenticationComponent implements OnInit {
   ngOnInit() {
   }
 
-  signin(username: string, password: string) {
-    this.auth.login(username,password)
+  signin(userCredentials:any) {
+    this.auth.login(userCredentials)
         .subscribe(
         data => {
           console.log("you are logged in");
