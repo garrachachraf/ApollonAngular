@@ -49,6 +49,7 @@ export class AppComponent implements OnInit{
         res => {
           this.isAuthenticated = true;
           this.currentUser = this.authenticationService.getToken();
+          this.authenticationService.isAuth = true;
         },
         error => {}
       )
