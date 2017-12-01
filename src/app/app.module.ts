@@ -16,6 +16,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { FollowComponent } from './user/follow/follow.component';
 
 const routes : Routes = [
   { path : '', component : HomeComponent},
@@ -31,7 +32,8 @@ const routes : Routes = [
     ArtworkDetailComponent,
     RatingComponent,
     HomeComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    FollowComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

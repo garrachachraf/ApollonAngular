@@ -28,7 +28,7 @@ export class AuthenticationComponent implements OnInit {
 }
 
 signup(user:any) {
-    this.userService.create(user)
+    this.userService.add(user)
         .subscribe(
         data => {
 

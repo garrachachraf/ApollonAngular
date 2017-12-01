@@ -1,13 +1,23 @@
+import { SubjectSubscriber } from 'rxjs/Subject';
 import { AppSettings } from '../shared/appSettings';
 import { Injectable } from "@angular/core";
 import { Response, Http, Headers } from "@angular/http";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import 'rxjs/add/operator/map';
+import { Subject }    from 'rxjs/Subject';
 
 @Injectable()
 export class AuthenticationService {
     private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    
+    public isAuth : boolean;
+    public myUSer : any;
 
+    private userSource = new Subject<any>();
+    private isAuthenticatedSource = new Subject<boolean>();
+    // Observable  streams
+    user$ = this.userSource.asObservable();
+    isAuthenticated$ = this.isAuthenticatedSource.asObservable();
+    
     constructor(private http: Http) {
     }
 
@@ -27,14 +37,16 @@ export class AuthenticationService {
                     user.token = token;
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
-
                 }
+                this.isAuthenticated(true);
             });
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        this.isAuthenticated(false);
+        this.saveUser(null);
     }
 
     getToken() {
@@ -42,5 +54,25 @@ export class AuthenticationService {
         if (currentUser && currentUser.token) {
             return currentUser;
         }
+    }
+
+    isAuthenticated(isAuthenticated: boolean) {
+        this.isAuthenticatedSource.next(isAuthenticated);
+        this.isAuth = isAuthenticated;
+    }
+
+    saveUser(user: any) {
+        this.userSource.next(user);
+        this.myUSer = user;
+    }
+
+    // Checks if the current token is valid
+    checkToken(){
+        let headers = new Headers(
+            {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': this.getToken().token
+         });
+        return this.http.post(AppSettings.API_ENDPOINT + 'users/check',null,{ headers: headers })
     }
 }
