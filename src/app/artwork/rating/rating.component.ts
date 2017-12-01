@@ -29,21 +29,22 @@ export class RatingComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isAuthenticated = (this.authenticationService.getToken());
+    this.isAuthenticated = (this.authenticationService.getToken() != null);
+    console.log(this.authenticationService.getToken());
+    this.initRating();
   }
 
   rate(rating : number) : void{
-    console.log("test");
-    
     if(this.isAuthenticated){
       this.ratingService.rate(rating,this.artId).subscribe(res=>{
             this.myRating = rating;
+            this.averageRating = res;
             console.log("test2");
       });
     }
   }
 
-  initRating(artworkId : number){
+  initRating(){
     this.getAvgRating();
     this.getMyrating();
   }
