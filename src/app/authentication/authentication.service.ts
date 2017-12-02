@@ -1,13 +1,16 @@
+import { User } from '../shared/model/user.model';
+import { HttpClient } from '@angular/common/http';
 import { SubjectSubscriber } from 'rxjs/Subject';
 import { AppSettings } from '../shared/appSettings';
 import { Injectable } from "@angular/core";
 import { Response, Http, Headers } from "@angular/http";
 import 'rxjs/add/operator/map';
 import { Subject }    from 'rxjs/Subject';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthenticationService {
-    private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    private headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     
     public isAuth : boolean;
     public myUSer : any;
@@ -18,20 +21,20 @@ export class AuthenticationService {
     user$ = this.userSource.asObservable();
     isAuthenticated$ = this.isAuthenticatedSource.asObservable();
     
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
     }
 
     login(userCredentials : any) {
         let body = new URLSearchParams();
         body.set('login', userCredentials.username);
         body.set('password', userCredentials.password);
-        return this.http.post(AppSettings.API_ENDPOINT + 'users/login', body.toString(), { headers: this.headers })
+        return this.http.post(AppSettings.API_ENDPOINT + 'users/login', body.toString(), { headers: this.headers,observe: 'response' })
             .map(response => {
                 // login successful if there's a jwt token in the response
                 console.log(response);
                 let token = response.headers.get("Authorization");
                 console.log(token);
-                let user = response.json();
+                let user:any = response.body;
                 console.log(user);
                 if (user && token) {
                     user.token = token;
@@ -68,7 +71,7 @@ export class AuthenticationService {
 
     // Checks if the current token is valid
     checkToken(){
-        let headers = new Headers(
+        let headers = new HttpHeaders(
             {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': this.getToken().token
