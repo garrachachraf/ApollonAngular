@@ -5,45 +5,44 @@ import { Component, OnInit } from '@angular/core';
 declare var $ :any;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [ShowroomService,AuthenticationService]
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+  providers: [ShowroomService, AuthenticationService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   userCredentials = { username: "", password: "" };
-  isAuthenticated : boolean=false;
-  currentUser : any = null;
+  isAuthenticated: boolean = false;
+  currentUser: any = null;
   constructor(
     private showroomService: ShowroomService,
     private authenticationService: AuthenticationService
-  ){
-
-  }
+  ) {}
   ngOnInit() {
-    if(this.authenticationService.getToken()){
+    if (this.authenticationService.getToken()) {
       this.isAuthenticated = true;
       this.currentUser = this.authenticationService.getToken();
     }
-    this.showroomService.getAll()
-      .subscribe(result => {
-      })
+    this.showroomService.getAll().subscribe(result => {});
   }
-  login(){
-    this.authenticationService.login(this.userCredentials).subscribe(res =>{
+  login() {
+    this.authenticationService.login(this.userCredentials).subscribe(res => {
       this.isAuthenticated = true;
       this.currentUser = this.authenticationService.getToken();
-      this.closeModal();
+      this.closeModal("#loginModal");
     });
   }
-  
-  closeModal() {
-    $('#loginModal').modal('hide')
+
+  closeCollection(a){
+    this.closeModal(a);
   }
-  logout(){
+
+  closeModal(a) {
+    $(a).modal("hide");
+  }
+  logout() {
     this.authenticationService.logout();
     this.isAuthenticated = false;
     this.currentUser = null;
   }
-
 }

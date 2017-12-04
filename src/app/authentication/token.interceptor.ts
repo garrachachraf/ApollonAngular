@@ -13,11 +13,13 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log(request);
 
-        request = request.clone({ 
+         if (this.authService.getToken()) {
+          request = request.clone({
             setHeaders: {
                 Authorization: `${this.authService.getToken().token}`
             }
-        });
+       });
+
         console.log(request);
         return next.handle(request).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
@@ -35,4 +37,5 @@ export class TokenInterceptor implements HttpInterceptor {
             }
         });
     }
+}
 }
