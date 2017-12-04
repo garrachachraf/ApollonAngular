@@ -1,4 +1,4 @@
-import {User } from "./user.module";
+import { User } from './user.model';
 
 export class GalleryOwner extends User {
     galleries: any;

@@ -1,18 +1,15 @@
-
-import { log } from 'util';
-import { Collection } from '../../shared/model/collection';
-import { getCollection } from '@angular/cli/utilities/schematics';
+import { User } from './../../shared/model/user.module';
+import { Collection } from './../../shared/model/collection';
 import { Artwork } from './../../shared/model/artwork.model';
 import { Component, OnInit, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
 import { CollectionService } from '../../collection/collection.service';
 import { AuthenticationService } from '../../authentication/authentication.service';
-import { User } from '../../shared/model/user.module';
-
 @Component({
   selector: "app-artwork-detail",
   templateUrl: "./artwork-detail.component.html",
   styleUrls: ["./artwork-detail.component.css"],
   providers: [CollectionService]
+
 })
 export class ArtworkDetailComponent implements OnInit {
   @Input() artwork: Artwork;
@@ -24,19 +21,25 @@ export class ArtworkDetailComponent implements OnInit {
 
   user: User;
   // tslint:disable-next-line:no-output-on-prefix
+
   @Output() onSelected = new EventEmitter<Artwork>();
+  isAuthenticated: boolean;
   constructor(
     private CollectionService: CollectionService,
-    private authService: AuthenticationService
-  ) {}
+    private authService: AuthenticationService,
+  private authenticationService:AuthenticationService) {}
+
+
 
   ngOnInit() {
-
-
-
-
-
-
+    this.isAuthenticated = this.authenticationService.isAuth;
+    this.subscribeAuth();
+  }
+  subscribeAuth() {
+    this.authenticationService.isAuthenticated$.subscribe(
+      isAuthenticated => {
+        this.isAuthenticated = isAuthenticated;
+      });
   }
 
   addArtToCollection(artwork: Artwork) {

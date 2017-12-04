@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Rating } from './../../shared/model/rating.model';
 import { Showroom } from '../../shared/model/showroom.model';
 import { DataService } from '../../shared/data.service';
@@ -13,8 +14,12 @@ export class RatingService extends DataService<Rating>{
       super(http,+AppSettings.API_ENDPOINT+"/ArtWork");
     }
 
-    rate(artworkId:number,ratingValue:number): Observable<any>{
-        return this.http.post(AppSettings.API_ENDPOINT+'rating/'+artworkId+'/'+ratingValue,null);
+    rate(ratingValue:number,artworkId:number): Observable<any>{
+        return this.http.post(
+            AppSettings.API_ENDPOINT+'rating/'+artworkId+'/'+ratingValue,
+            null,
+            {responseType: 'text'}
+        );
     }
 
     getMyrating(userId: number): Observable<number>{

@@ -6,5 +6,6 @@
       <span [class]="myRating > 3 ? starRated : starNotRated" aria-hidden="true" (click)="rate(4)"></span>
       <span [class]="myRating > 4 ? starRated : starNotRated" aria-hidden="true" (click)="rate(5)"></span>
     </span>
-      <span>Note moyenne : {{this.averageRating}} /5</span>
+    <br>
+      <span>Average rating : {{this.averageRating  | number : '1.1-1'}} /5</span>
   </div>

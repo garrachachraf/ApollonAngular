@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { CollectionComponent } from './collection/collection.component';
+import { FollowComponent } from './user/follow/follow.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 const routes : Routes = [
   { path : '', component : HomeComponent},
@@ -34,7 +36,9 @@ const routes : Routes = [
     RatingComponent,
     HomeComponent,
     AuthenticationComponent,
-    CollectionComponent
+    CollectionComponent,
+    FollowComponent,
+    WishlistComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

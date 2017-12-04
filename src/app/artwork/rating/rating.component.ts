@@ -26,26 +26,35 @@ export class RatingComponent implements OnInit {
   private starNotRated : string =' glyphicon glyphicon-star cursorPointer';
   averageRating : number;
 
-
-
   ngOnInit() {
-    this.isAuthenticated = (this.authenticationService.getToken());
+    this.isAuthenticated = this.authenticationService.isAuth;
+    this.subscribeAuth();
+    this.initRating();
   }
 
+  // subscribe to the isAuthenticated observable
+  subscribeAuth() {
+    this.authenticationService.isAuthenticated$.subscribe(
+      isAuthenticated => {
+        if(isAuthenticated) this.getMyrating();
+        this.isAuthenticated = isAuthenticated;
+      });
+    }
   rate(rating : number) : void{
-    console.log("test");
-    
     if(this.isAuthenticated){
       this.ratingService.rate(rating,this.artId).subscribe(res=>{
             this.myRating = rating;
-            console.log("test2");
+            this.averageRating = res;
       });
     }
   }
 
-  initRating(artworkId : number){
+  initRating(){
     this.getAvgRating();
-    this.getMyrating();
+    if(this.isAuthenticated){
+      this.getMyrating();
+    }
+
   }
 
   getAvgRating() : void{
