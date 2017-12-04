@@ -1,6 +1,6 @@
+import { FollowService } from './follow.service';
 import { User } from './../../shared/model/user.model';
 import { AuthenticationService } from './../../authentication/authentication.service';
-import { FollowService } from './follow.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -11,8 +11,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FollowComponent implements OnInit {
   @Input() artistId :number;
-  isFollowing: boolean;
   isAuthenticated: boolean;
+  isFollowing: boolean;
   followers: User[];
   followersNbr: number;
 
@@ -23,6 +23,8 @@ export class FollowComponent implements OnInit {
   ngOnInit() {
     this.isAuthenticated = this.authenticationService.isAuth;
     this.subscribeAuth();
+    this.getFollow();
+    this.countFollowers();
   }
 
   subscribeAuth() {
@@ -36,14 +38,16 @@ export class FollowComponent implements OnInit {
     this.followService.follow(this.artistId).subscribe(
       res =>{
         this.isFollowing = true;
+        this.followersNbr++;
       }
     )
   }
 
   unfollow(){
-    this.followService.follow(this.artistId).subscribe(
+    this.followService.unfollow(this.artistId).subscribe(
       res =>{
-        this.isFollowing = false
+        this.isFollowing = false;
+        this.followersNbr--;
       }
     )
   }
@@ -54,6 +58,28 @@ export class FollowComponent implements OnInit {
         this.followersNbr = res
       }
     )
+  }
+  getFollowers(){
+    this.followService.getFollowers(this.artistId).subscribe(
+      res =>{
+        this.followers = res
+      }
+    ) 
+  }
+  getFollow(){
+    this.followService.getFollow(this.authenticationService.getToken().id,this.artistId).subscribe(
+      res =>{
+        if(res.status == 200){
+          this.isFollowing = true;
+        }
+        else{
+          this.isFollowing = false;
+        }
+      },
+      error =>{
+        this.isFollowing = false;
+      }
+    ) 
   }
 
 }

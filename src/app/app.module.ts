@@ -17,6 +17,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { FollowComponent } from './user/follow/follow.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 const routes : Routes = [
   { path : '', component : HomeComponent},
@@ -33,7 +34,8 @@ const routes : Routes = [
     RatingComponent,
     HomeComponent,
     AuthenticationComponent,
-    FollowComponent
+    FollowComponent,
+    WishlistComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -1,3 +1,4 @@
+import { ResponseType } from '@angular/http';
 import { User } from './../../shared/model/user.model';
 import { Observable } from 'rxjs/Observable';
 import { AppSettings } from './../../shared/appSettings';
@@ -9,12 +10,12 @@ export class FollowService{
   constructor(private http:HttpClient){
     }
 
-  follow(artistId:number): Observable<number> {
-   return this.http.post<number>(AppSettings.API_ENDPOINT+'follow/'+artistId,null);
+  follow(artistId:number): Observable<any> {
+   return this.http.post(AppSettings.API_ENDPOINT+'follow/'+artistId,null,{responseType: 'text'});
   }
 
   unfollow(artistId: number): Observable<any>{
-    return this.http.delete<any>(AppSettings.API_ENDPOINT+'follow/'+artistId,null);
+    return this.http.delete(AppSettings.API_ENDPOINT+'follow/'+artistId,{responseType: 'text'});
   }
 
   getFollowers(artistId: number): Observable<User[]>{
@@ -31,6 +32,10 @@ export class FollowService{
 
   countFollowers(artistId: number): Observable<number>{
     return this.http.get<number>(AppSettings.API_ENDPOINT+'follow/artist/count/'+artistId);
+  }
+
+  getFollow(userId: number,artistId: number){
+    return this.http.get<any>(AppSettings.API_ENDPOINT+'follow/'+artistId+'/'+userId,{observe: 'response'});
   }
   
 }
