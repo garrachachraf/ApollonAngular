@@ -1,5 +1,6 @@
 import { Artist } from './artist.model'
 import { Rating } from './rating.model'
+import { User } from './user.module';
 
 export class Artwork{
   id : number;
@@ -7,7 +8,7 @@ export class Artwork{
   description : string;
   releaseDate : Date;
   mediaPath : string;
-  artist : any;
+  artist : User;
   ratings : Rating[];
   price : number;
 }

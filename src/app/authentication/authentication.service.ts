@@ -1,4 +1,4 @@
-import { User } from '../shared/model/user.model';
+import { User } from './../shared/model/user.module';
 import { HttpClient } from '@angular/common/http';
 import { SubjectSubscriber } from 'rxjs/Subject';
 import { AppSettings } from '../shared/appSettings';
@@ -11,7 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class AuthenticationService {
     private headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    
+
     public isAuth : boolean;
     public myUSer : any;
 
@@ -20,7 +20,7 @@ export class AuthenticationService {
     // Observable  streams
     user$ = this.userSource.asObservable();
     isAuthenticated$ = this.isAuthenticatedSource.asObservable();
-    
+
     constructor(private http: HttpClient) {
     }
 
@@ -32,7 +32,7 @@ export class AuthenticationService {
             .map(response => {
                 let token = response.headers.get("Authorization");
                 let user:any = response.body;
-                
+
                 if (user && token) {
                     console.log();
                     user.token = token;

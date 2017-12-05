@@ -1,0 +1,3 @@
+<div *ngIf="collection" class="card-list">
+ <app-artwork-detail *ngFor="let artwork of collection.artworks" [artwork]="artwork" [artworkin]="true"></app-artwork-detail>
+</div>

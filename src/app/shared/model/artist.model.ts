@@ -1,5 +1,5 @@
-import { User } from './user.model';
+import { User } from './user.module';
 export class Artist  extends User {
-    type: any;
+    type?: any;
 
 }

@@ -4,7 +4,7 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-          <span class="icon-bar"></span>                        
+          <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand ap-logo"><img width="45" height="45" src="../assets/logo-apollon.png"></a>
       </div>
@@ -18,17 +18,21 @@
         <ul *ngIf="!isAuthenticated" class="nav navbar-nav navbar-right">
           <li  data-toggle="modal" data-target="#loginModal"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-new-window"></span> Sign Up</a></li>
+
         </ul>
         <ul *ngIf="isAuthenticated" class="nav navbar-nav navbar-right">
             <li><a>Welcome {{currentUser.userName}}</a></li>
             <li (click)="openWishlist()"><a><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+            <li data-toggle="modal" data-target="#collectionModal"><a href="#">
+                <span class="glyphicon glyphicon-heart"></span> collection</a>
+            </li>
             <li (click)="logout()"><a><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
           </ul>
       </div>
     </div>
   </nav>
 
-  <div class="container-fluid text-center">    
+  <div class="container-fluid text-center">
     <div class="row content">
       <router-outlet></router-outlet>
     </div>
@@ -92,7 +96,7 @@
             <div class="row">
                 <div class="col-xs-offset-2 col-xs-8">
                     <div class="form-wrap">
-                     
+
                           <form role="form" action="javascript:;" method="post" id="login-form" autocomplete="off">
                               <div class="form-group">
                                   <label for="username" class="sr-only">Email</label>
@@ -101,17 +105,48 @@
                               <div class="form-group">
                                   <label for="key" class="sr-only">Password</label>
                                   <input [(ngModel)]="userCredentials.password" type="password" name="key" id="key" class="form-control" placeholder="Password">
-                              </div> 
+                              </div>
                           </form>
                     </div>
               </div> <!-- /.col-xs-12 -->
-            </div> 
+            </div>
         </div>
         <div class="modal-footer">
-            <input type="submit" id="btn-login" class="btn btn-custom" value="Log in" (click)="login()">
+            <input type="submit" id="btn-login" class="btn btn-custom" value="Log in" (click)="login('#loginModal')">
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
+  <!-- /.collectionmodel  -->
+<div class="modal fade" tabindex="-1" role="dialog" id="collectionModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 style="text-align: center">your favorite artwork </h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-offset-2 col-lg-8">
+              <app-collection></app-collection>
+            </div>
+            <!-- /.col-xs-12 -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" id="btn-collection" class="btn btn-custom" value="close" (click)="closeCollection('#collectionModal')">
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
   <app-wishlist></app-wishlist>
+
+
+

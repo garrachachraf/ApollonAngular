@@ -14,7 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
         let authService = this.injector.get(AuthenticationService)
         // achraf : if(request.headers.get('Authorization') == null)
         if(authService.getToken()){
-            request = request.clone({ 
+            request = request.clone({
                 setHeaders: {
                     Authorization: `${authService.getToken().token}`
                 }
@@ -36,3 +36,4 @@ export class TokenInterceptor implements HttpInterceptor {
         });
     }
 }
+

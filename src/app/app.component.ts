@@ -11,12 +11,14 @@ declare var $ :any;
   styleUrls: ['./app.component.css'],
   providers: [ShowroomService,WishlistService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   userCredentials = { username: "", password: "" };
-  isAuthenticated : boolean=false;
-  currentUser : any = null;
+  isAuthenticated: boolean = false;
+  currentUser: any = null;
   constructor(
     private authenticationService: AuthenticationService
+
+
   ){}
 
   ngOnInit() {
@@ -29,14 +31,19 @@ export class AppComponent implements OnInit{
       res =>{
         res=> this.authenticationService.isAuthenticated(true);
         this.currentUser = this.authenticationService.getToken();
-        this.closeModal();
+        this.closeModal("#loginModal");
       },
       res=> this.authenticationService.isAuthenticated(false)
     );
+
   }
-  
-  closeModal() {
-    $('#loginModal').modal('hide')
+
+  closeCollection(a){
+    this.closeModal(a);
+  }
+
+  closeModal(a) {
+    $(a).modal("hide");
   }
 
   logout(){

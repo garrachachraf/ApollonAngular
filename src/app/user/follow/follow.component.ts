@@ -1,5 +1,5 @@
+import { User } from './../../shared/model/user.module';
 import { FollowService } from './follow.service';
-import { User } from './../../shared/model/user.model';
 import { AuthenticationService } from './../../authentication/authentication.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -64,7 +64,7 @@ export class FollowComponent implements OnInit {
       res =>{
         this.followers = res
       }
-    ) 
+    )
   }
   getFollow(){
     this.followService.getFollow(this.authenticationService.getToken().id,this.artistId).subscribe(
@@ -79,7 +79,7 @@ export class FollowComponent implements OnInit {
       error =>{
         this.isFollowing = false;
       }
-    ) 
+    )
   }
 
 }

@@ -1,5 +1,5 @@
+import { User } from './../../shared/model/user.module';
 import { ResponseType } from '@angular/http';
-import { User } from './../../shared/model/user.model';
 import { Observable } from 'rxjs/Observable';
 import { AppSettings } from './../../shared/appSettings';
 import { HttpClient } from '@angular/common/http';
@@ -37,5 +37,5 @@ export class FollowService{
   getFollow(userId: number,artistId: number){
     return this.http.get<any>(AppSettings.API_ENDPOINT+'follow/'+artistId+'/'+userId,{observe: 'response'});
   }
-  
+
 }
