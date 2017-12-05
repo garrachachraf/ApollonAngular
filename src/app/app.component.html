@@ -22,8 +22,9 @@
         </ul>
         <ul *ngIf="isAuthenticated" class="nav navbar-nav navbar-right">
             <li><a>Welcome {{currentUser.userName}}</a></li>
+            <li (click)="openWishlist()"><a><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
             <li data-toggle="modal" data-target="#collectionModal"><a href="#">
-                <span class="glyphicon glyphicon-log-in"></span> collection</a>
+                <span class="glyphicon glyphicon-heart"></span> collection</a>
             </li>
             <li (click)="logout()"><a><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
           </ul>
@@ -144,6 +145,8 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+
+  <app-wishlist></app-wishlist>
 
 
 

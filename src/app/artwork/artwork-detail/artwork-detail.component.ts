@@ -4,6 +4,10 @@ import { Artwork } from './../../shared/model/artwork.model';
 import { Component, OnInit, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
 import { CollectionService } from '../../collection/collection.service';
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { WishlistService } from './../../wishlist/shared/wishlist.service';
+
+declare var $ :any;
+
 @Component({
   selector: "app-artwork-detail",
   templateUrl: "./artwork-detail.component.html",
@@ -21,14 +25,14 @@ export class ArtworkDetailComponent implements OnInit {
 
   user: User;
   // tslint:disable-next-line:no-output-on-prefix
-
   @Output() onSelected = new EventEmitter<Artwork>();
   isAuthenticated: boolean;
-  constructor(
-    private CollectionService: CollectionService,
-    private authService: AuthenticationService,
-  private authenticationService:AuthenticationService) {}
 
+  constructor(
+    private authenticationService:AuthenticationService,
+    private wishlistService: WishlistService,
+    private CollectionService: CollectionService
+  ) { }
 
 
   ngOnInit() {
@@ -39,13 +43,23 @@ export class ArtworkDetailComponent implements OnInit {
     this.authenticationService.isAuthenticated$.subscribe(
       isAuthenticated => {
         this.isAuthenticated = isAuthenticated;
+        this.wishlistService.getWishlist().subscribe()
       });
   }
+  addToWishlist(){
+    this.wishlistService.addItem(this.artwork.id).subscribe(
+      res=>{
+        this.wishlistService.addArtworkToStream(this.artwork)
+        $('#wishlistModal').modal('show')
+      }
+    )
+  }
+
 
   addArtToCollection(artwork: Artwork) {
-    this.user = this.authService.getToken();
+    this.user = this.authenticationService.getToken();
     console.log("yoddfsdfdf" + this.user.id);
-    this.authService.getToken();
+    this.authenticationService.getToken();
     this.CollectionService.getcollectionByUser(this.user.id).subscribe(
       result => {
         this.collections = result;

@@ -12,6 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let authService = this.injector.get(AuthenticationService)
+        // achraf : if(request.headers.get('Authorization') == null)
         if(authService.getToken()){
             request = request.clone({
                 setHeaders: {
@@ -24,14 +25,12 @@ export class TokenInterceptor implements HttpInterceptor {
             if (event instanceof HttpResponse) {
                 request.headers.keys()
                 console.log(event);
-
-
             }
         }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
                 if (err.status === 401) {
                     console.log("you are not logged in");
-
+                    authService.logout();
                 }
             }
         });

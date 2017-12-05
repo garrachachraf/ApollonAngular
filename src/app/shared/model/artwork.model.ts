@@ -3,7 +3,7 @@ import { Rating } from './rating.model'
 import { User } from './user.module';
 
 export class Artwork{
-  id:any;
+  id : number;
   title :string;
   description : string;
   releaseDate : Date;

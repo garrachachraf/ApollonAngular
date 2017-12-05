@@ -1,19 +1,20 @@
 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 cell-container">
-    <img class="image" [src]="artwork.mediaPath"> <a class="overlay">
+  <img class="image" [src]="artwork.mediaPath">
+  <a class="overlay">
     <div class="text">
       <p class="title">{{artwork.title}}</p>
 
       <div class="divider">
       </div>
       <p class="sub-title">{{artwork.artist.userName}}</p>
+      <i *ngIf="isAuthenticated" (click)="addToWishlist()" class="fa fa-cart-plus" aria-hidden="true"></i>
       <app-rating [artworkId]="artwork.id"></app-rating>
+
       <div *ngIf="!artworkin">
-      <button type="submit" class="btn btn-success" (click)="addArtToCollection(artwork)">add to collection</button>
+        <button type="submit" class="btn btn-success" (click)="addArtToCollection(artwork)">add to collection</button>
       </div>
-      <share-container direction="horizontal"  [platforms]="['reddit','twitter','facebook']">
+      <share-container direction="horizontal" [platforms]="['reddit','twitter','facebook']">
       </share-container>
-
     </div>
-
   </a>
-  </div>
+</div>
