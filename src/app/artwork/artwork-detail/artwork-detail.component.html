@@ -6,7 +6,8 @@
       <div class="divider">
       </div>
       <p class="sub-title">{{artwork.artist.userName}}</p>
+      <i *ngIf="isAuthenticated" (click)="addToWishlist()" class="fa fa-cart-plus" aria-hidden="true"></i>
       <app-rating [artworkId]="artwork.id"></app-rating>
     </div></a>
-  </div>
+</div>
   

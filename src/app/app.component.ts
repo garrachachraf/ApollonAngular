@@ -1,6 +1,7 @@
 import { AuthenticationService } from './authentication/authentication.service';
 import { ShowroomService } from './showroom/shared/showroom.service';
 import { Component, OnInit } from '@angular/core';
+import { WishlistService } from './wishlist/shared/wishlist.service';
 
 declare var $ :any;
 
@@ -8,7 +9,7 @@ declare var $ :any;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ShowroomService]
+  providers: [ShowroomService,WishlistService]
 })
 export class AppComponent implements OnInit{
   userCredentials = { username: "", password: "" };
@@ -54,6 +55,10 @@ export class AppComponent implements OnInit{
         error => {}
       )
     }
+  }
+
+  openWishlist(){
+    $('#wishlistModal').modal('show')
   }
   // subscribe to the isAuthenticated observable
   subscribeAuth() {
