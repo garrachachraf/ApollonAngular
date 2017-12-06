@@ -1,0 +1,18 @@
+.mainContent{
+    border-radius: 10px;
+    min-height: 600px; 
+    background-color: #222222;
+    color: rgb(255, 255, 255);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    opacity: 0.95;
+    text-align: center;
+}
+
+.orders-table{
+    color: black;
+    background-color: white;
+}
+.orders-table tbody tr{
+    cursor: pointer;
+}
