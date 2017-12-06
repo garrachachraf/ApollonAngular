@@ -1,3 +1,4 @@
+import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
@@ -24,7 +25,8 @@ const routes : Routes = [
   { path : '', component : HomeComponent},
   { path : 'showrooms', component : ShowroomListComponent},
   { path : 'artworks', component : ArtworkDetailComponent},
-  { path : 'collection', component : CollectionComponent}
+  { path : 'collection', component : CollectionComponent},
+  { path : 'order', component : OrderComponent}
 ]
 
 @NgModule({
@@ -38,7 +40,8 @@ const routes : Routes = [
     AuthenticationComponent,
     CollectionComponent,
     FollowComponent,
-    WishlistComponent
+    WishlistComponent,
+    OrderComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
