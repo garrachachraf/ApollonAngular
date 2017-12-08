@@ -19,12 +19,23 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { CollectionComponent } from './collection/collection.component';
 import { FollowComponent } from './user/follow/follow.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { RegisteruserComponent } from './registeruser/registeruser.component';
+import {BsDropdownModule} from "ngx-bootstrap";
+import {NgxIntlTelInputComponent, NgxIntlTelInputModule, NgxIntlTelInputService} from "ngx-intl-tel-input";
+import {MediaUploadService} from "./media-upload/media-upload.service";
+import {MediaUploadComponent} from "./media-upload/media-upload.component";
+import {FormWizardModule} from "angular2-wizard/dist";
+import {ProfileDetailsComponent} from "./profile/profile-details/profile-details.component";
+import {SendsmsService} from "./registeruser/shared/sendsms.service";
+import {ProfileService} from "./profile/shared/profile.service";
 
 const routes : Routes = [
   { path : '', component : HomeComponent},
   { path : 'showrooms', component : ShowroomListComponent},
   { path : 'artworks', component : ArtworkDetailComponent},
-  { path : 'collection', component : CollectionComponent}
+  { path : 'reg' , component : RegisteruserComponent },
+  { path : 'collection', component : CollectionComponent},
+  { path : 'profile', component : ProfileDetailsComponent }
 ]
 
 @NgModule({
@@ -38,7 +49,11 @@ const routes : Routes = [
     AuthenticationComponent,
     CollectionComponent,
     FollowComponent,
-    WishlistComponent
+    WishlistComponent,
+    RegisteruserComponent,
+    NgxIntlTelInputComponent,
+    MediaUploadComponent,
+    ProfileDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -46,7 +61,9 @@ const routes : Routes = [
     HttpClientModule,
     HttpModule,
     FormsModule,
+    FormWizardModule,
     ShareModule,
+    BsDropdownModule.forRoot(),
     BrowserAnimationsModule
   ],
   providers: [
@@ -55,7 +72,11 @@ const routes : Routes = [
       useClass: TokenInterceptor,
       multi: true
   },
-    AuthenticationService
+    AuthenticationService,
+    NgxIntlTelInputService,
+    MediaUploadService,
+    SendsmsService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })
