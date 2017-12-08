@@ -1,5 +1,25 @@
 # ApollonClient
 
+to use the upload function :
+- call the compoment by adding this to your html :
+`
+<app-media-upload (eventemetter)="apollonavartar($event)"></app-media-upload>
+`
+
+ in your compoment.ts add a function :
+ 
+    `  apollonavartar(val: any){
+         this.avatar = JSON.parse(val) ;
+         
+       }`
+       
+avatar will contain the json parsed object that you can do any thing you want with is  :p 
+
+
+
+###########################################################
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 
 ## Development server
