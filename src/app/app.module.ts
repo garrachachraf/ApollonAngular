@@ -1,3 +1,4 @@
+import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
@@ -35,7 +36,10 @@ const routes : Routes = [
   { path : 'artworks', component : ArtworkDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
   { path : 'collection', component : CollectionComponent},
-  { path : 'profile', component : ProfileDetailsComponent }
+  { path : 'profile', component : ProfileDetailsComponent },
+  { path : 'collection', component : CollectionComponent},
+  { path : 'order', component : OrderComponent}
+
 ]
 
 @NgModule({
@@ -54,6 +58,7 @@ const routes : Routes = [
     NgxIntlTelInputComponent,
     MediaUploadComponent,
     ProfileDetailsComponent,
+    OrderComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

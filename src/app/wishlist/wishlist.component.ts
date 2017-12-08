@@ -1,19 +1,26 @@
+import { RouterModule,Routes,Router } from '@angular/router';
+import { OrderService } from './shared/order.service';
 import { WishlistService } from './shared/wishlist.service';
 import { Wishlist } from './../shared/model/wishlist.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Artwork } from '../shared/model/artwork.model';
 
+declare var $:any;
+
 @Component({
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html',
-  styleUrls: ['./wishlist.component.css']
+  styleUrls: ['./wishlist.component.css'],
+  providers: [OrderService]
 })
 export class WishlistComponent implements OnInit {
-  wishlist: Wishlist ={"artWorks":null,"total":null};
+  wishlist: Wishlist ={"artWorks":[],"total":null};
   constructor(
     private wishlistService: WishlistService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private orderService: OrderService,
+    private route: Router
   ) { }
 
   ngOnInit() {
@@ -29,6 +36,7 @@ export class WishlistComponent implements OnInit {
     this.getWishlist();
     this.subscribeAuth();
   }
+
   subscribeAuth() {
     this.authenticationService.isAuthenticated$.subscribe(
       isAuthenticated => {
@@ -64,5 +72,20 @@ export class WishlistComponent implements OnInit {
       }
     )
   }
+
+  createOrder(){
+    this.orderService.createOrder(this.wishlist.artWorks).subscribe(
+      res=>{
+        this.wishlist = {"artWorks":[],"total":null};
+        $('#wishlistModal').modal('hide')
+        this.route.navigate(['order'])
+      }
+    )
+  }
+  goOrderHistory(){
+    $('#wishlistModal').modal('hide')
+    this.route.navigate(["order"])
+  }
+  
 
 }

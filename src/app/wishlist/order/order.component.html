@@ -1,11 +1,33 @@
-<!-- Wishlist Modal -->
-<div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+<div class="mainContent col-xs-offset-2 col-sm-8">
+  <div class="page-header">
+    <h1>Your Orders </h1>
+  </div>
+  <table class="table table-hover orders-table" *ngIf="orders">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Price</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders" (click)="currentOrder = order" data-toggle="modal" data-target="#orderModal"> 
+        <td>{{order.id}}</td>
+        <td>{{order.totalAmount | currency:'EUR'}}</td>
+        <td>{{order.orderDate | date:'medium'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Order Modal -->
+<div *ngIf="currentOrder" class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <a (click)="goOrderHistory()" class="pull-right">Order history</a>
-        <h4 class="modal-title">Your Wishlist</h4>
+        <h4 class="modal-title">Order #{{currentOrder.id}}</h4>
       </div>
       <div class="modal-body">
         <table class="table">
@@ -14,27 +36,24 @@
               <th>Artwork</th>
               <th>Artist</th>
               <th>Price</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let artwork of wishlist.artWorks">
+            <tr *ngFor="let artwork of currentOrder.artWorks">
               <td><img [src]="artwork.mediaPath" width="100" height="100"></td>
               <td>{{artwork.artist.userName}}</td>
               <td>{{artwork.price | currency:'EUR'}}</td>
-              <td (click)="removeItem(artwork)"><span class="glyphicon glyphicon-remove"></span></td>
             </tr>
-            <tr *ngIf="!wishlist.artWorks">
+            <tr>
               <td></td>
               <td>Total :</td>
-              <td>{{wishlist.total | currency:'EUR' }}</td>
+              <td>{{currentOrder.totalAmount | currency:'EUR' }}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button [disabled]="!wishlist.artWorks || !wishlist.artWorks.length >0" (click)="createOrder()" type="button" class="btn btn-primary">Pass Order</button>
       </div>
     </div>
   </div>
