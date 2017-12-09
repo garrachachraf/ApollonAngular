@@ -11,7 +11,7 @@ export class ShowroomService extends DataService<Showroom>{
     constructor(http:HttpClient){
         super(http,AppSettings.API_ENDPOINT+"showroom");
       }
-    addArtworks(artworks: Artwork[],showroomId){
-        return this.http.post(this.endpointUrl+'/artworks/'+showroomId,artworks,{responseType:'text'})
+    addArtworks(showroom:Showroom){
+        return this.http.post(this.endpointUrl+'/artworks',showroom,{responseType:'text'})
     }
 }

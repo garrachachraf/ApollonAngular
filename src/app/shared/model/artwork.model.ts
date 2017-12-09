@@ -4,6 +4,7 @@ import { User } from './user.module';
 
 export class Artwork{
   id : number;
+  sold: boolean;
   title :string;
   description : string;
   releaseDate : Date;

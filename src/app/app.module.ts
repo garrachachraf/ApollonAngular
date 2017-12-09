@@ -24,6 +24,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 const routes : Routes = [
   { path : '', component : HomeComponent},
   { path : 'showrooms', component : ShowroomListComponent},
+  { path : 'showroom/:id', component : ShowroomDetailComponent},
   { path : 'artworks', component : ArtworkDetailComponent},
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent}

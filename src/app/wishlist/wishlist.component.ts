@@ -24,16 +24,16 @@ export class WishlistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getWishlist();
     // subscribe to wishlist items stream
     this.wishlistService.artworkAdded$.subscribe(
       artwork =>{
-        if(!this.wishlist.artWorks.includes(artwork)){
+        if(!this.wishlist.artWorks.find(x=> x.id == artwork.id)){
           this.wishlist.artWorks.push(artwork);
           this.wishlist.total += artwork.price;
         }
       }
     )
-    this.getWishlist();
     this.subscribeAuth();
   }
 
