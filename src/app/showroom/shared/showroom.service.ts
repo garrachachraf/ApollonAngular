@@ -14,4 +14,8 @@ export class ShowroomService extends DataService<Showroom>{
     addArtworks(showroom:Showroom){
         return this.http.post(this.endpointUrl+'/artworks',showroom,{responseType:'text'})
     }
+
+    create(showroom:Showroom){
+        return this.http.post(this.endpointUrl,showroom,{responseType:'text'})
+    }
 }

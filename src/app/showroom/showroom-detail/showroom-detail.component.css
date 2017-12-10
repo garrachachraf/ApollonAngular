@@ -49,3 +49,12 @@
   .showroom-title{
       color: black;
   }
+
+.sh-options{
+    cursor: pointer;
+    margin-right: 50px;
+    margin-top: 10px;
+}
+.sh-options span:hover{
+    color: white;
+}

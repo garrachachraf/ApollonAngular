@@ -1,0 +1,49 @@
+<div class="showroom-form">
+  <h2>Add Showroom</h2>
+  <form class="col-xs-offset-1 col-sm-4">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="newShowroom.title" name="title">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea name="description" class="form-control" id="description" cols="30" rows="5" [(ngModel)]="newShowroom.description"></textarea>
+    </div>
+    <h3>Artworks for this showroom</h3>
+    <div class="ap-edit-list col-sm-12">
+      <ul class="hide-bullets">
+        <li *ngFor="let artwork of newShowroom.artWorks" class="col-sm-3">
+          <a class="thumbnail cell-container">
+            <img [src]="artwork.mediaPath" alt="ny artwork">
+            <a class="overlay">
+              <button (click)="removeFromShowroom(artwork)" class="btn">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button>
+            </a>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <br>
+    <button (click)="saveShowroom()" type="submit" class="btn btn-default pull-left saveButton">
+      <span class="glyphicon glyphicon-floppy-save"></span>Save 
+    </button>
+  </form>
+  <div class="ap-edit-list col-sm-offset-1 col-sm-4">
+    <ul class="hide-bullets">
+      <h3>Your artworks</h3>
+        <li *ngFor="let artwork of myArtworks" class="col-sm-3">
+          <a class="thumbnail cell-container">
+            <img [src]="artwork.mediaPath" class="">
+            <a class="overlay">
+              <button (click)="addToShowroom(artwork)" class="btn">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </a>
+          </a>
+        </li>
+    </ul>
+  </div>
+
+
+</div>

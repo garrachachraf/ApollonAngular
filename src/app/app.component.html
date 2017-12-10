@@ -21,7 +21,7 @@
 
         </ul>
         <ul *ngIf="isAuthenticated" class="nav navbar-nav navbar-right">
-            <li><a href="/profile">Welcome {{currentUser.userName}}</a></li>
+            <li><a routerLink="profile">Welcome {{currentUser.userName}}</a></li>
             <li (click)="openWishlist()"><a><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
             <li data-toggle="modal" data-target="#collectionModal"><a>
                 <span class="glyphicon glyphicon-heart"></span> collection</a>

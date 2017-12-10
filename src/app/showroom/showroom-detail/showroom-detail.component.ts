@@ -61,6 +61,21 @@ export class ShowroomDetailComponent implements OnInit, AfterViewInit {
     this.myArtworks.push(artwork)
   }
 
+  deleteShowroom(){
+    this.showroomService.delete(this.showroom.id).subscribe(
+      res=>{
+        this.router.navigate(['profile']);
+        this.closeModal();
+      }
+    )
+  }
+
+  closeModal() {
+    $("#confirmationModal").modal("hide");
+  }
+  openModal(a) {
+    $("#confirmationModal").modal("show");
+  }
   enableEdit(){
     this.editMode=true;
     this.getMyArtworks();

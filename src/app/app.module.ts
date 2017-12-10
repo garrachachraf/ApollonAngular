@@ -29,6 +29,7 @@ import {FormWizardModule} from "angular2-wizard/dist";
 import {ProfileDetailsComponent} from "./profile/profile-details/profile-details.component";
 import {SendsmsService} from "./registeruser/shared/sendsms.service";
 import {ProfileService} from "./profile/shared/profile.service";
+import { ShowroomFormComponent } from './showroom/showroom-form/showroom-form.component';
 
 const routes : Routes = [
   { path : '', component : HomeComponent},
@@ -39,8 +40,8 @@ const routes : Routes = [
   { path : 'collection', component : CollectionComponent},
   { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
-  { path : 'order', component : OrderComponent}
-
+  { path : 'order', component : OrderComponent},
+  { path : 'showroomform', component : ShowroomFormComponent}
 ]
 
 @NgModule({
@@ -59,7 +60,8 @@ const routes : Routes = [
     NgxIntlTelInputComponent,
     MediaUploadComponent,
     ProfileDetailsComponent,
-    OrderComponent
+    OrderComponent,
+    ShowroomFormComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
