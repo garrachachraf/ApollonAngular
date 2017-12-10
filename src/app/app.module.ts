@@ -29,6 +29,9 @@ import {FormWizardModule} from "angular2-wizard/dist";
 import {ProfileDetailsComponent} from "./profile/profile-details/profile-details.component";
 import {SendsmsService} from "./registeruser/shared/sendsms.service";
 import {ProfileService} from "./profile/shared/profile.service";
+import {FollowService} from "./user/follow/follow.service";
+import { ProfileUpdateComponent } from './profile/profile-update/profile-update.component';
+import {AdressApiService} from "./profile/shared/addressApi.service";
 
 const routes : Routes = [
   { path : '', component : HomeComponent},
@@ -38,7 +41,8 @@ const routes : Routes = [
   { path : 'collection', component : CollectionComponent},
   { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
-  { path : 'order', component : OrderComponent}
+  { path : 'order', component : OrderComponent},
+  { path : 'update' , component: ProfileUpdateComponent }
 
 ]
 
@@ -58,7 +62,8 @@ const routes : Routes = [
     NgxIntlTelInputComponent,
     MediaUploadComponent,
     ProfileDetailsComponent,
-    OrderComponent
+    OrderComponent,
+    ProfileUpdateComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -81,7 +86,9 @@ const routes : Routes = [
     NgxIntlTelInputService,
     MediaUploadService,
     SendsmsService,
-    ProfileService
+    ProfileService,
+    FollowService,
+    AdressApiService
   ],
   bootstrap: [AppComponent]
 })
