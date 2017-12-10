@@ -36,6 +36,7 @@ import {AdressApiService} from "./profile/shared/addressApi.service";
 const routes : Routes = [
   { path : '', component : HomeComponent},
   { path : 'showrooms', component : ShowroomListComponent},
+  { path : 'showroom/:id', component : ShowroomDetailComponent},
   { path : 'artworks', component : ArtworkDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
   { path : 'collection', component : CollectionComponent},

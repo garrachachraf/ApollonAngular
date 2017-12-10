@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Showroom } from '../../shared/model/showroom.model'
 import { ShowroomService } from '../shared/showroom.service'
 declare var $ :any;
@@ -8,32 +9,20 @@ declare var $ :any;
   styleUrls: ['./showroom-list.component.css'],
   providers : [ShowroomService]
 })
-export class ShowroomListComponent implements OnInit,AfterViewInit {
+export class ShowroomListComponent implements OnInit {
 
   showrooms: Showroom[];
-  constructor(private showroomService: ShowroomService) { }
+  constructor(
+    private showroomService: ShowroomService,
+    private route:Router
+  ) { }
 
   ngOnInit() {
     this.showroomService.getAll()
       .subscribe(result => this.showrooms = result);
   }
-  ngAfterViewInit() {
-    $('#myCarousel').carousel({
-      interval: 10000
-  })
-  $('.fdi-Carousel .item').each(function () {
-      var next = $(this).next();
-      if (!next.length) {
-          next = $(this).siblings(':first');
-      }
-      next.children(':first-child').clone().appendTo($(this));
 
-      if (next.next().length > 0) {
-          next.next().children(':first-child').clone().appendTo($(this));
-      }
-      else {
-          $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-      }
-  });
+  goTo(showroomId: number){
+    this.route.navigate(['showroom/'+showroomId])
   }
 }
