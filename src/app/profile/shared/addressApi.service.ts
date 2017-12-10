@@ -10,13 +10,11 @@ export class AdressApiService  {
   key = '428e1b2fddb1fc2f01160644d5cfa920';
 
   getcountries(){
-    let countrylist ;
-    let headers = new HttpHeaders();
-    headers = headers.append("Access-Control-Allow-Origin","http://localhost:4200");
-    headers = headers.append("Access-Control-Allow-Headers","X-Requested-With");
-    this.http.get('http://battuta.medunes.net/api/country/all/?key=' + this.key+"&callback=?",{headers: headers}).subscribe(res => {countrylist = res; });
-
-    console.log(JSON.parse(countrylist));
+    return this.http.get('https://battuta.medunes.net/api/country/all/?key='+this.key);
   }
 
+  getstates(country:string){
+
+      return this.http.get('https://battuta.medunes.net/api/region/'+country+'/all/?key='+this.key);
+  }
 }

@@ -9,18 +9,24 @@ import {Http} from "@angular/http";
   styleUrls: ['./profile-update.component.css']
 })
 export class ProfileUpdateComponent implements OnInit {
-
+  country: any ;
+  states: any ;
   constructor(private http: HttpClient) { }
-  key = '428e1b2fddb1fc2f01160644d5cfa920';
+  counts = new AdressApiService(this.http);
   ngOnInit() {
-    let headers = new HttpHeaders();
 
-    headers =headers.append("Accept","application/json");
-    headers =headers.append("Accept","text/plain");
-    headers =headers.append("Accept","*/*");
+    this.counts.getcountries().subscribe(data => {
+      this.country= data;
+      console.log(this.country );
 
-      this.http.get('https://battuta.medunes.net/api/country/all/?key=428e1b2fddb1fc2f01160644d5cfa920&callback=', { headers: headers , responseType:"text"}).subscribe(data => {
-        console.log(data);
-      });
+    });
+
+  }
+  getstates(country : any){
+    this.counts.getstates(country).subscribe(data => {
+      this.states = data ;
+      console.log(data);
+
+    });
   }
 }

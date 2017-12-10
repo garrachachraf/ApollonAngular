@@ -40,6 +40,7 @@ const routes : Routes = [
   { path : 'artworks', component : ArtworkDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
   { path : 'collection', component : CollectionComponent},
+  { path : 'profile/:id', component : ProfileDetailsComponent },
   { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent},
