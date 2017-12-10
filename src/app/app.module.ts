@@ -30,6 +30,9 @@ import {ProfileDetailsComponent} from "./profile/profile-details/profile-details
 import {SendsmsService} from "./registeruser/shared/sendsms.service";
 import {ProfileService} from "./profile/shared/profile.service";
 import { ShowroomFormComponent } from './showroom/showroom-form/showroom-form.component';
+import {FollowService} from "./user/follow/follow.service";
+import { ProfileUpdateComponent } from './profile/profile-update/profile-update.component';
+import {AdressApiService} from "./profile/shared/addressApi.service";
 
 const routes : Routes = [
   { path : '', component : HomeComponent},
@@ -38,10 +41,13 @@ const routes : Routes = [
   { path : 'artworks', component : ArtworkDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
   { path : 'collection', component : CollectionComponent},
+  { path : 'profile/:id', component : ProfileDetailsComponent },
   { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent},
-  { path : 'showroomform', component : ShowroomFormComponent}
+  { path : 'showroomform', component : ShowroomFormComponent},
+  { path : 'update' , component: ProfileUpdateComponent }
+
 ]
 
 @NgModule({
@@ -61,7 +67,8 @@ const routes : Routes = [
     MediaUploadComponent,
     ProfileDetailsComponent,
     OrderComponent,
-    ShowroomFormComponent
+    ShowroomFormComponent,
+    ProfileUpdateComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -84,7 +91,9 @@ const routes : Routes = [
     NgxIntlTelInputService,
     MediaUploadService,
     SendsmsService,
-    ProfileService
+    ProfileService,
+    FollowService,
+    AdressApiService
   ],
   bootstrap: [AppComponent]
 })
