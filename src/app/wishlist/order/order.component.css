@@ -1,11 +1,14 @@
+.orderContent{
+    background-color: #222222;
+}
+
 .mainContent{
     border-radius: 10px;
     min-height: 600px; 
-    background-color: #222222;
-    color: rgb(255, 255, 255);
+    background-color: white;
+    color: black;
     margin-top: 50px;
     margin-bottom: 50px;
-    opacity: 0.95;
     text-align: center;
 }
 
