@@ -9,13 +9,14 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "OneSignalSDK.js"
       ],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
+      "tsconfig": "tsconfig.app.json", 
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [

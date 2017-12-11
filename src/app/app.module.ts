@@ -1,3 +1,4 @@
+import { AuthGuard } from './authentication/auth-guard.service';
 import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -45,7 +46,11 @@ const routes : Routes = [
   { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent},
-  { path : 'showroomform', component : ShowroomFormComponent},
+  { 
+    path : 'showroomform',
+    component : ShowroomFormComponent,
+    canActivate: [AuthGuard]
+  },
   { path : 'update' , component: ProfileUpdateComponent }
 
 ]
@@ -93,7 +98,8 @@ const routes : Routes = [
     SendsmsService,
     ProfileService,
     FollowService,
-    AdressApiService
+    AdressApiService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

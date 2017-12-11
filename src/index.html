@@ -9,11 +9,23 @@
   <meta property="n2s:via" content="Google" />
   <meta property="n2s:hashtags" content="Google" />
   <title>ApollonClient</title>
-  <base href="/">
+  <base href=".">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+  <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: "4877ccbf-8df0-4fc6-bf12-752b8adaf227",
+      allowLocalhostAsSecureOrigin: true,
+      autoRegister: true, /* Set to true to automatically prompt visitors */
+      notifyButton: {
+          enable: false /* Set to false to hide */
+      }
+    }]);
+  </script>
 </head>
 <body>
   <app-root></app-root>
