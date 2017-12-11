@@ -30,7 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
             if (err instanceof HttpErrorResponse) {
                 if (err.status === 401) {
                     console.log("you are not logged in");
-                    authService.logout();
+                  //  authService.logout();
                 }
             }
         });

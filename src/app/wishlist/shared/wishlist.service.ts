@@ -16,16 +16,16 @@ export class WishlistService extends DataService<Wishlist>{
         // Observable string sources
     private artworksSource = new Subject<Artwork>();
     private missionConfirmedSource = new Subject<string>();
-   
+
     // Observable string streams
     artworkAdded$ = this.artworksSource.asObservable();
     missionConfirmed$ = this.missionConfirmedSource.asObservable();
-   
+
     // Service message commands
     addArtworkToStream(artwork: Artwork) {
         this.artworksSource.next(artwork);
     }
-   
+
     confirmMission(astronaut: string) {
         this.missionConfirmedSource.next(astronaut);
     }
@@ -45,5 +45,5 @@ export class WishlistService extends DataService<Wishlist>{
     getTotal(){
         return this.http.get<number>(this.endpointUrl+'total')
     }
-    
+
 }

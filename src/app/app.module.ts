@@ -19,13 +19,14 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { CollectionComponent } from './collection/collection.component';
 import { FollowComponent } from './user/follow/follow.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { CreateArtworkComponent } from './artwork/create-artwork/create-artwork.component';
 
-const routes : Routes = [
-  { path : '', component : HomeComponent},
-  { path : 'showrooms', component : ShowroomListComponent},
-  { path : 'artworks', component : ArtworkDetailComponent},
-  { path : 'collection', component : CollectionComponent}
-]
+const routes: Routes = [
+  { path: "", component: HomeComponent, pathMatch:'full' },
+  { path: "showrooms", component: ShowroomListComponent,pathMatch:'full'  },
+  { path: "artworks", component: CreateArtworkComponent,pathMatch:'full' },
+  { path: "collection", component: CollectionComponent ,pathMatch:'full' }
+];
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ const routes : Routes = [
     AuthenticationComponent,
     CollectionComponent,
     FollowComponent,
-    WishlistComponent
+    WishlistComponent,
+    CreateArtworkComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
