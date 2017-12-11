@@ -1,0 +1,49 @@
+<!-- Listing Item -->
+<div class="listing-item">
+
+  <a href="single-property-page-1.html" class="listing-img-container">
+
+    <div class="listing-badges">
+      <span class="featured">Featured</span>
+      <span>For Rent</span>
+    </div>
+
+    <div class="listing-img-content">
+      <span class="listing-price"> {{item.pricing.daily}} $<i>{{item.surface}}/ m²</i></span>
+      <span class="like-icon with-tip" data-tip-content="Add to Bookmarks"></span>
+      <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
+    </div>
+
+    <div class="listing-carousel">
+      <div><img src="../../../../assets/galleriesStyle/images/listing-01.jpg" alt=""></div>
+      <div><img src="../../../../assets/galleriesStyle/images/listing-01b.jpg" alt=""></div>
+      <div><img src="../../../../assets/galleriesStyle/images/listing-01c.jpg" alt=""></div>
+    </div>
+  </a>
+
+  <div class="listing-content">
+
+    <div class="listing-title">
+      <h4><a href="single-property-page-1.html">{{item.name}}</a></h4>
+      <a style="cursor:pointer" class="listing-address popup-gmaps" (click)="selectedAddress(item.location)">
+        <i class="fa fa-map-marker"></i>
+        {{item.location.address}}
+      </a>
+
+      <a href="single-property-page-1.html" class="details button border">Details</a>
+    </div>
+
+    <ul class="listing-details">
+      <li> <i class="fa fa-users"></i> {{item.maxCapacity}} Max Capacity</li>
+      <li><i class="fa fa-user-secret"></i> {{item.pricing.securityDeposit}} $ security Deposit</li>
+      <li><i class="fa fa-users"></i> {{item.pricing.cleaningFee}} $ cleaningFee</li>
+    </ul>
+
+    <div class="listing-footer">
+      <a style="cursor:pointer" ><i class="fa fa-user"></i>  {{item.galleryOwner.firstname}} {{item.galleryOwner.lastname}}</a>
+    </div>
+
+  </div>
+
+</div>
+<!-- Listing Item / End -->

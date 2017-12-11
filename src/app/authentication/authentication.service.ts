@@ -22,6 +22,7 @@ export class AuthenticationService {
     isAuthenticated$ = this.isAuthenticatedSource.asObservable();
 
     constructor(private http: HttpClient) {
+        this.subscribeAuth();
     }
 
     login(userCredentials : any) {
@@ -72,4 +73,10 @@ export class AuthenticationService {
     checkToken(){
         return this.http.post(AppSettings.API_ENDPOINT + 'users/check',null,{responseType : 'text'})
     }
+    subscribeAuth() {
+        this.isAuthenticated$.subscribe(
+          isAuthenticated => {
+            this.isAuth = isAuthenticated;
+          });
+        }
 }

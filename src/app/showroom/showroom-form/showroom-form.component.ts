@@ -62,9 +62,9 @@ export class ShowroomFormComponent implements OnInit {
   subscribeAuth() {
     this.authenticationService.isAuthenticated$.subscribe(
       isAuthenticated => {
-        this.isAuthenticated = isAuthenticated;
-        this.currentUser=this.authenticationService.getToken();
-        this.getMyArtworks();
+        if(isAuthenticated == false){
+          this.route.navigate(['']);
+        }
       });
     }
 }

@@ -1,8 +1,13 @@
+import { AuthGuard } from './authentication/auth-guard.service';
 import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
+<<<<<<< HEAD
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+=======
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+>>>>>>> ba96f412c1d402336de9cd18311afc8f4c6551d6
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -32,9 +37,13 @@ import {ProfileService} from './profile/shared/profile.service';
 import { ShowroomFormComponent } from './showroom/showroom-form/showroom-form.component';
 import {FollowService} from './user/follow/follow.service';
 import { ProfileUpdateComponent } from './profile/profile-update/profile-update.component';
-import {AdressApiService} from './profile/shared/addressApi.service';
 import {EmailvalidationService} from './registeruser/shared/emailvalidation.service';
-
+import {AdressApiService} from "./profile/shared/addressApi.service";
+import { GalleriesListComponent } from './galleries/components/galleries-list/galleries-list.component';
+import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
+import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
+import { AgmCoreModule } from '@agm/core';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 const routes: Routes = [
   { path : '', component : HomeComponent},
   { path : 'showrooms', component : ShowroomListComponent},
@@ -46,8 +55,13 @@ const routes: Routes = [
   { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent},
-  { path : 'showroomform', component : ShowroomFormComponent},
-  { path : 'update' , component: ProfileUpdateComponent }
+  {
+    path : 'showroomform',
+    component : ShowroomFormComponent,
+    canActivate: [AuthGuard]
+  },
+  { path : 'update' , component: ProfileUpdateComponent },
+  { path : 'galleries' , component: GalleriesListComponent }
 
 ];
 
@@ -71,6 +85,9 @@ const routes: Routes = [
     ShowroomFormComponent,
     ProfileUpdateComponent,
 
+    GalleriesListComponent,
+    GalleriesListItemComponent,
+    GalleriesListScrollerComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -82,7 +99,13 @@ const routes: Routes = [
     ShareModule,
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs',
+      libraries: ['places']
+    }),
+    VirtualScrollModule
   ],
   providers: [
     {
@@ -97,7 +120,8 @@ const routes: Routes = [
     ProfileService,
     FollowService,
     AdressApiService,
-    EmailvalidationService
+    EmailvalidationService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
