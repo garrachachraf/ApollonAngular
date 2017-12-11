@@ -1,71 +1,68 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule , FormGroup } from '@angular/forms';
+import {FormsModule, FormGroup, FormControl, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import {SendsmsService} from './shared/sendsms.service';
 import {ProfileService} from '../profile/shared/profile.service';
 import {User} from '../shared/model/user.module';
+import {EmailvalidationService} from './shared/emailvalidation.service';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-registeruser',
   templateUrl: './registeruser.component.html',
-  styleUrls: ['./registeruser.component.css']
+  styleUrls: ['./registeruser.component.css'],
+
 })
 export class RegisteruserComponent implements OnInit {
 
-   verif = false;
-   randnumber: string ;
-   confirmed = false ;
-   avatar: string;
-  isCompleted = false ;
-  constructor(private smsservice: SendsmsService , private profileservice: ProfileService) {
-    this.randnumber  = '' + (Math.floor(Math.random() * (999999 - 100000)) + 100000);
-    console.log(this.randnumber);
+  constructor( private profileservice: ProfileService , private fb: FormBuilder , private emailservice: EmailvalidationService   ) {
+    this.rForm = fb.group({
+      firstname : [null, Validators.compose([Validators.required, Validators.minLength(3)])],
+      lastname : [null, Validators.required],
+      username : [null, Validators.required],
+      email : [null, Validators.required , this.checkthem.bind(this) ],
+      role : [null, Validators.required],
+      password : [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)])],
+      confirmpassword : [null, Validators.compose([Validators.required])],
+      validate : ''
+    }, { validator: this.checkIfMatchingPasswords('password', 'confirmpassword')});
   }
-
+  rForm: FormGroup;
+  user: User;                     // A property for our submitted form
+  roles: Array<string> = ['User', 'Artist' , 'GalleryOwner'];
+  valid: any ;
   ngOnInit() {
+    this.user = {
+      userName: '',
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      role: ''
+    };
   }
+  save(model: User) {
+    // call API to save customer
+    this.profileservice.add(model).subscribe(res => {console.log(res); });
+   }
 
-  checkthisnumber(tel: string){
-    this.smsservice.sendsmstothis(tel , this.randnumber);
-  }
-  checkconfirmationcode(code: string){
-    if (this.randnumber == code){
-      return true;
-    }
-    return false ;
-  }
 
-  apollonavartar(val: any){
-    this.avatar = JSON.parse(val).path ;
-    this.isCompleted = true ;
-  }
-
-  registerhim(fname: string , lname: string , password: string ,
-              email: string , address: string , role: string ,
-              city: string , state: string , zip: string,
-              phone: string , country: string
-              ){
-    const user = new User();
-    user.firstname = fname ;
-    user.lastname = lname;
-    user.password = password;
-    user.city = city ;
-    user.street = address ;
-    user.state = state ;
-    user.email = email ;
-    user.role = role ;
-    user.country = country ;
-    user.zipCode = zip;
-    user.imagePath = this.avatar;
-    user.userName = email ;
-
-    this.profileservice.add(user).subscribe(res => {console.log(res)});
-  }
-
-  checkstep1(fname: string , lname: string , password: string ){
-      if (fname.length > 3 || lname.length > 3 || password.length > 7){
-        return true ;
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      const passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({notEquivalent: true});
       }
-      return false ;
+      else {
+        return passwordConfirmationInput.setErrors(null);
+      }
+    };
+  }
+
+  async checkthem(control: AbstractControl ) {
+    this.valid = await this.emailservice.checke(control.value);
+    return this.valid.is_valid ? null : { emailTaken: true };
   }
 
 }

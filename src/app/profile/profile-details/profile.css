@@ -1,3 +1,9 @@
+.ap-profile-flex {
+  display: inline-block;
+  position: relative;
+
+}
+
 .bordered-row {
   border-bottom: 0.07rem dashed #ebedf2;
   padding-bottom: 15px;

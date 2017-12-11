@@ -1,12 +1,12 @@
 <div *ngIf="isFollowing">
-  <button class="btn btn-primary btn-block" (click)="unfollow()">
+  <button class="btn btn-default btn-block" (click)="unfollow()">
     <i class="fa fa-user-times" aria-hidden="true"></i>
-     unfollow 
+     unfollow
      <span class="badge" (click)="!followers ? getFollowers() : ''"data-toggle="modal" data-target="#followerModal">{{followersNbr}}</span>
   </button>
 </div>
 <div *ngIf="!isFollowing">
-  <button class="btn btn-primary btn-block" (click)="follow()">
+  <button class="btn btn-default btn-block" (click)="follow()">
     <i class="fa fa-user-plus" aria-hidden="true"></i>
      follow
      <span class="badge" (click)="!followers ? getFollowers() : ''"data-toggle="modal" data-target="#followerModal" >{{followersNbr}}</span>
