@@ -1,15 +1,23 @@
 .navbar {
-    border-radius: 0;
-    margin-bottom: 0;
-  }
-  .nav-pills > li.active > a{
-    background-color: #222222;
+  border-radius: 0;
+  margin-bottom: 0;
 }
-.ap-logo{
+
+.navbar li {
+  cursor: pointer;
+}
+
+.nav-pills>li.active>a {
+  background-color: #222222;
+}
+
+.ap-logo {
   padding-top: 2.5px;
 }
 
+
 /* Footer */
+
 #myFooter {
   background-color: #3c3d41;
   color: white;
@@ -50,7 +58,7 @@
   margin-top: 30px;
 }
 
-#myFooter h2 a{
+#myFooter h2 a {
   font-size: 50px;
   text-align: center;
   color: #fff;
@@ -110,25 +118,27 @@
 
 @media screen and (max-width: 767px) {
   #myFooter {
-      text-align: center;
+    text-align: center;
   }
 }
 
-
-#myFooter{
- flex: 0 0 auto;
- -webkit-flex: 0 0 auto;
+#myFooter {
+  flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
 }
+
 
 /* moadl */
 
 #login {
   padding-top: 50px
 }
+
 #login .form-wrap {
   width: 30%;
   margin: 0 auto;
 }
+
 #login h1 {
   color: #1fa67b;
   font-size: 18px;
@@ -136,9 +146,11 @@
   font-weight: bold;
   padding-bottom: 20px;
 }
+
 #login .form-group {
   margin-bottom: 25px;
 }
+
 #login .checkbox {
   margin-bottom: 20px;
   position: relative;
@@ -148,6 +160,7 @@
   -o-user-select: none;
   user-select: none;
 }
+
 #login .checkbox.show:before {
   content: '\e013';
   color: #1fa67b;
@@ -157,6 +170,7 @@
   pointer-events: none;
   font-family: 'Glyphicons Halflings';
 }
+
 #login .checkbox .character-checkbox {
   width: 25px;
   height: 25px;
@@ -166,31 +180,38 @@
   vertical-align: middle;
   display: inline-block;
 }
+
 #login .checkbox .label {
   color: #6d6d6d;
   font-size: 13px;
   font-weight: normal;
 }
+
 #login .btn.btn-custom {
   font-size: 14px;
-margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
 #login .forget {
   font-size: 13px;
-text-align: center;
-display: block;
+  text-align: center;
+  display: block;
 }
+
 
 /*    --------------------------------------------------
 :: Inputs & Buttons
 -------------------------------------------------- */
+
 .form-control {
   color: #212121;
 }
+
 .btn-custom {
   color: #fff;
-background-color: #222222;
+  background-color: #222222;
 }
+
 .btn-custom:hover,
 .btn-custom:focus {
   color: #fff;

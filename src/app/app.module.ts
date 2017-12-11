@@ -3,7 +3,7 @@ import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -34,8 +34,12 @@ import { ShowroomFormComponent } from './showroom/showroom-form/showroom-form.co
 import {FollowService} from "./user/follow/follow.service";
 import { ProfileUpdateComponent } from './profile/profile-update/profile-update.component';
 import {AdressApiService} from "./profile/shared/addressApi.service";
-
-const routes : Routes = [
+import { GalleriesListComponent } from './galleries/components/galleries-list/galleries-list.component';
+import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
+import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
+import { AgmCoreModule } from '@agm/core';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
+const routes: Routes = [
   { path : '', component : HomeComponent},
   { path : 'showrooms', component : ShowroomListComponent},
   { path : 'showroom/:id', component : ShowroomDetailComponent},
@@ -51,7 +55,8 @@ const routes : Routes = [
     component : ShowroomFormComponent,
     canActivate: [AuthGuard]
   },
-  { path : 'update' , component: ProfileUpdateComponent }
+  { path : 'update' , component: ProfileUpdateComponent },
+  { path : 'galleries' , component: GalleriesListComponent }
 
 ]
 
@@ -73,7 +78,10 @@ const routes : Routes = [
     ProfileDetailsComponent,
     OrderComponent,
     ShowroomFormComponent,
-    ProfileUpdateComponent
+    ProfileUpdateComponent,
+    GalleriesListComponent,
+    GalleriesListItemComponent,
+    GalleriesListScrollerComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -84,7 +92,13 @@ const routes : Routes = [
     FormWizardModule,
     ShareModule,
     BsDropdownModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs',
+      libraries: ['places']
+    }),
+    VirtualScrollModule
   ],
   providers: [
     {
