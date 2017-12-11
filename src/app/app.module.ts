@@ -3,11 +3,8 @@ import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
-<<<<<<< HEAD
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-=======
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
->>>>>>> ba96f412c1d402336de9cd18311afc8f4c6551d6
+
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
