@@ -27,4 +27,5 @@ export class CollectionService extends DataService<any> {
       AppSettings.API_ENDPOINT + "Collection/user/" + page
     );
   }
+
 }

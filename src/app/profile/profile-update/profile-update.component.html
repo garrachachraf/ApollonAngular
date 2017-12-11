@@ -1,0 +1,79 @@
+<div id="exTab2" class="container app-bg col-md-6">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a  href="#1" data-toggle="tab">Address</a>
+    </li>
+    <li><a href="#2" data-toggle="tab">Without clearfix</a>
+    </li>
+    <li><a href="#3" data-toggle="tab">Solution</a>
+    </li>
+  </ul>
+
+  <div class="tab-content ">
+    <div class="tab-pane active" id="1">
+      <br>
+        <div class="content-box">
+          <form class="form-horizontal">
+            <div class="form-group bordered-row">
+              <label class="col-sm-3 control-label">First Name:</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="" placeholder="First name...">
+
+              </div>
+            </div>
+            <div class="form-group bordered-row">
+              <label class="col-sm-3 control-label">Last Name:</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="" placeholder="Last name...">
+              </div>
+            </div>
+
+            <div class="form-group bordered-row">
+              <label class="col-sm-3 control-label">Street:</label>
+              <div class="col-sm-6">
+                <textarea name="" rows="3" class="form-control textarea-autosize" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 78px;"></textarea>
+              </div>
+            </div>
+            <div class="form-group bordered-row">
+              <label class="col-sm-3 control-label">Country:</label>
+              <div class="col-sm-6">
+                <select class="form-control" (change)="getstates(cc.value)" #cc>
+                  <option *ngFor="let c of country" value="{{ c.code }}">{{ c.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group bordered-row">
+              <label class="col-sm-3 control-label">State:</label>
+              <div class="col-sm-6">
+                <select class="form-control" >
+                  <option *ngFor="let s of states" value="{{ s.region }}">{{ s.region }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group bordered-row">
+              <label class="col-sm-3 control-label">City:</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="" placeholder="Website...">
+              </div>
+            </div>
+
+          </form>
+          <div class="button-pane mrg20T">
+            <button class="btn btn-info">Save</button>
+            <button class="btn btn-link font-gray-dark">Cancel</button>
+          </div>
+        </div>
+      <br>
+
+    </div>
+    <div class="tab-pane" id="2">
+      <h3>Notice the gap between the content and tab after applying a background color</h3>
+    </div>
+    <div class="tab-pane" id="3">
+      <h3>add clearfix to tab-content (see the css)</h3>
+    </div>
+  </div>
+</div>
+

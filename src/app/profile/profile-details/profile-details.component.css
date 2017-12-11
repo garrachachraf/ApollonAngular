@@ -1,0 +1,29 @@
+@import "/assets/icons/font-awesome.min.css";
+
+.ap-banner-profile{
+font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; color: #FFF;
+
+}
+.ap-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ap-radius {
+
+
+  opacity: 0.9;
+  filter: alpha(opacity=90); /* For IE8 and earlier */
+  background: url('/assets/profile-bg.jpg') no-repeat ;
+  background-size: 100% ;
+
+}
+
+.ap-high-400px {
+  height: 400px;
+
+}
+.hp-info{
+  margin-left: 35px;
+}

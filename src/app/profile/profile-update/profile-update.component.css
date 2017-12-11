@@ -1,0 +1,9 @@
+.app-bg {
+  margin: 20px;
+  background-color: white;
+  border-radius: 5px;
+}
+.bordered-row {
+  border-bottom: 0.07rem dashed #ebedf2;
+  padding-bottom: 15px;
+}

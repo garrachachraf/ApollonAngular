@@ -22,8 +22,8 @@ export class ArtworkDetailComponent implements OnInit {
   collection: Collection;
   user: User;
   // tslint:disable-next-line:no-output-on-prefix
-  @Output() onAdd = new EventEmitter();
-  isAuthenticated: boolean;
+@Output() onAdd = new EventEmitter();
+isAuthenticated: boolean;
 
   constructor(
     private authenticationService:AuthenticationService,

@@ -18,8 +18,6 @@ export class AppComponent implements OnInit {
   currentUser: any = null;
   constructor(
     private authenticationService: AuthenticationService
-
-
   ){}
 
   ngOnInit() {
@@ -38,7 +36,7 @@ export class AppComponent implements OnInit {
     );
 
   }
-
+  
   closeCollection(a){
     this.closeModal(a);
   }

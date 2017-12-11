@@ -23,6 +23,6 @@ export abstract class DataService<T> {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(this.endpointUrl + "/" + id);
+    return this.http.delete(this.endpointUrl + "/" + id,{responseType:'text'});
   }
 }

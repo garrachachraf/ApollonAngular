@@ -4,6 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <a (click)="goOrderHistory()" class="pull-right">Order history</a>
         <h4 class="modal-title">Your Wishlist</h4>
       </div>
       <div class="modal-body">
@@ -20,20 +21,20 @@
             <tr *ngFor="let artwork of wishlist.artWorks">
               <td><img [src]="artwork.mediaPath" width="100" height="100"></td>
               <td>{{artwork.artist.userName}}</td>
-              <td>{{artwork.price}}</td>
+              <td>{{artwork.price | currency:'EUR'}}</td>
               <td (click)="removeItem(artwork)"><span class="glyphicon glyphicon-remove"></span></td>
             </tr>
-            <tr>
+            <tr *ngIf="!wishlist.artWorks">
               <td></td>
               <td>Total :</td>
-              <td>{{wishlist.total}}</td>
+              <td>{{wishlist.total | currency:'EUR' }}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Pass Order</button>
+        <button [disabled]="!wishlist.artWorks || !wishlist.artWorks.length >0" (click)="createOrder()" type="button" class="btn btn-primary">Pass Order</button>
       </div>
     </div>
   </div>

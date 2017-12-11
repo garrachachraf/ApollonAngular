@@ -1,44 +1,112 @@
-
-<div *ngIf="showroom" class="card-list">
-  <h2 class="ui center aligned header">
-    {{showroom.title}}
+<div *ngIf="showroom" class="showroom-detail">
+  <h2 *ngIf="!editMode">{{showroom.title}}
+    <small>by {{showroom.artist.userName}}
+      <span *ngIf="isMyShowroom" class="sh-options pull-right">
+        <span (click)="enableEdit()">
+          <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+        </span>
+        <span data-toggle="modal" data-target="#confirmationModal">
+          <i class="glyphicon glyphicon-remove-sign" aria-hidden="true"></i>
+        </span>
+      </span>
+    </small>
   </h2>
+  <!--  Edit Mode -->
+  <h2 *ngIf="editMode">
+    <input class="input-lg showroom-title" placeholder="{{showroom.title}}" type="text" [(ngModel)]="showroomTitle">
+    <small>by {{showroom.artist.userName}}
+    </small>
 
-  <div class="ui four cards special">
-    <app-artwork-detail *ngFor="let artwork of showroom.artWorks" [artwork]="artwork" class="card" (onSelected)="onSelectArtwork($event)"></app-artwork-detail>
+  </h2>
+  <!--  -->
+  <div *ngIf="showroom.artWorks.length ==0 && editMode == false" class="no-artworks">
+    <h2>Sorry :/ no artworks were found</h2>
   </div>
-  <div class="ui four cards special">
-    <app-artwork-detail *ngFor="let artwork of showroom.artWorks" [artwork]="artwork" class="card" (onSelected)="onSelectArtwork($event)"></app-artwork-detail>
-  </div>
-  <div class="ui four cards special">
-    <app-artwork-detail *ngFor="let artwork of showroom.artWorks" [artwork]="artwork" class="card" (onSelected)="onSelectArtwork($event)"></app-artwork-detail>
+  <div class="container">
+    <div id="main_area">
+      <!-- Slider -->
+      <div *ngIf="showroom.artWorks.length >0 || editMode == true" class="row">
+        <div class="col-sm-6" id="slider-thumbs">
+          <!-- Bottom switcher of slider -->
+          <ul class="hide-bullets">
+            <li *ngFor="let artwork of showroom.artWorks" class="col-sm-3">
+              <a class="thumbnail cell-container" id="{{'carousel-selector-'+artwork.id}}">
+                <img [src]="artwork.mediaPath">
+                <a *ngIf="editMode" class="overlay">
+                  <button (click)="removeFromShowroom(artwork)" class="btn">
+                    <span class="glyphicon glyphicon-minus"></span>
+                  </button>
+                </a>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="!editMode" class="col-sm-6">
+          <div class="col-xs-12" id="slider">
+            <!-- Top part of the slider -->
+            <div class="row">
+              <div class="col-sm-12" id="carousel-bounding-box">
+                <div class="carousel slide" id="myCarousel">
+                  <!-- Carousel items -->
+                  <div class="carousel-inner">
+                    <div *ngFor="let artwork of showroom.artWorks; let i = index" [class]=" i==0 ? 'item active':'item'" [attr.data-slide-number]="artwork.id">
+                      <img [src]="artwork.mediaPath">
+                      <app-rating [artworkId]="artwork.id"></app-rating>
+                    </div>
+
+                  </div>
+                  <!-- Carousel nav -->
+                  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </a>
+                  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/Slider-->
+        <div *ngIf="editMode" class="ap-edit-list col-sm-6">
+          <ul class="hide-bullets">
+            <h3>Your artworks</h3>
+            <li *ngFor="let artwork of myArtworks" class="col-sm-3">
+              <a class="thumbnail cell-container" id="{{'carousel-selector-'+artwork.id}}">
+                <img [src]="artwork.mediaPath" class="">
+                <a class="overlay">
+                  <button (click)="addToShowroom(artwork)" class="btn">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                </a>
+              </a>
+            </li>
+          </ul>
+          <div class="col-md-12">
+            <button (click)="save()" class="btn btn-default">
+              <span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+            <button (click)="cancel()" class="btn btn-default">
+              <span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<!-- Artwork detail Modal -->
-<div *ngIf="selectedArtwork" class="ui modal" id="artwork-detail-modal">
-  <i class="close icon"></i>
-  <div class="header">
-    {{selectedArtwork.title}}
-  </div>
-  <div class="image content">
-    <div class="ui medium image">
-      <img [src]="selectedArtwork.mediaPath">
-    </div>
-    <div class="description">
-      <div class="ui header">We've auto-chosen a profile image for you.</div>
-      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-      <p>Is it okay to use this photo?</p>
-      <app-rating></app-rating>
+<!-- confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <br>
+          <h4 class="modal-title">Do you really want to delete this showroom</h4>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button (click)="deleteShowroom()" type="button" class="btn btn-primary">Yes</button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="actions">
-    <div class="ui black deny button">
-      Nope
-    </div>
-    <div class="ui positive right labeled icon button">
-      Yep, that's me
-      <i class="checkmark icon"></i>
-    </div>
-  </div>
-</div>
