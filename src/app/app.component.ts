@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     );
 
   }
-  
+
   closeCollection(a){
     this.closeModal(a);
   }

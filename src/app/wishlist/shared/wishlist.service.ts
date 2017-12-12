@@ -27,13 +27,10 @@ export class WishlistService extends DataService<Wishlist>{
     addArtworkToStream(artwork: Artwork) {
         this.artworksSource.next(artwork);
     }
-<<<<<<< HEAD
 
     confirmMission(astronaut: string) {
         this.missionConfirmedSource.next(astronaut);
     }
-=======
->>>>>>> 4d7f3e461e5d39418ccad3aff0ce22b706347812
 
     getWishlist(){
         return this.http.get<Wishlist>(this.endpointUrl);

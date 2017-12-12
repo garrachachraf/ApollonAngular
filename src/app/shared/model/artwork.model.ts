@@ -6,7 +6,7 @@ export class Artwork{
   id : number;
   sold: boolean;
   title :string;
-  description : string;
+  descreption : string;
   releaseDate : Date;
   mediaPath : string;
   artist : User;

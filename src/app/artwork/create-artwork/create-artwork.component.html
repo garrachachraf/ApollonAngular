@@ -1,0 +1,69 @@
+<div id="exTab2" class="container app-bg col-lg-12">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#1" data-toggle="tab">Art Info</a>
+    </li>
+    <li>
+      <a href="#2" data-toggle="tab">Avatar </a>
+    </li>
+
+  </ul>
+
+  <div class="tab-content ">
+    <div class="tab-pane active" id="1">
+      <br>
+      <div class="content-box">
+        <form class="form-horizontal" >
+          <div class="form-group bordered-row">
+            <label class="col-sm-3 control-label">Title</label>
+            <div class="col-sm-6">
+              <input type="text"  name="title" class="form-control" placeholder="Title..." value="{{ Artwork.title }}" #title>
+            </div>
+          </div>
+
+
+          <div class="form-group bordered-row">
+            <label class="col-sm-3 control-label">description :</label>
+            <div class="col-sm-6">
+              <textarea name="" rows="3" ngModel name="Description" class="form-control textarea-autosize" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 78px;"
+                #description>{{ Artwork.description }}</textarea>
+            </div>
+          </div>
+
+
+
+
+          <div class="form-group  bordered-row">
+            <label class="col-sm-3 control-label">price:</label>
+            <div class="col-sm-6">
+              <input type="number"  name="price" class="form-control" value="{{ Artwork.price }}" #price>
+            </div>
+
+          </div>
+         <div class="button-pane mrg20T">
+          <button class="btn btn-info" type="button" (click)="oncreate(title.value,description.value,price.value)" >Save</button>
+          <button class="btn btn-link font-gray-dark">Cancel</button>
+        </div>
+        </form>
+       
+      </div>
+      <br>
+
+    </div>
+    <div class="tab-pane" id="2">
+      <br>
+      <div class="form-group app-update-flex">
+        <label>Avatar</label>
+        <div class="thumbnail-container" *ngIf="thumbnail" >
+
+          <div class="thumbnail app-thembnail">
+            <img src="/assets/thumbnail-placeholder.png" class="app-thembnail">
+          </div>
+        </div>
+        <app-media-upload (eventemetter)="apollonavartar($event)"></app-media-upload>
+        <button type="button" class="btn btn-info">Save</button>
+      </div>
+    </div>
+
+  </div>
+</div>

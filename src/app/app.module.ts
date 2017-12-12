@@ -38,14 +38,12 @@ import {AdressApiService} from "./profile/shared/addressApi.service";
 import { GalleriesListComponent } from './galleries/components/galleries-list/galleries-list.component';
 import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
 import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
-
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path : '', component : HomeComponent},
   { path : 'showrooms', component : ShowroomListComponent},
   { path : 'showroom/:id', component : ShowroomDetailComponent},
-  { path : 'artworks', component : ArtworkDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'profile/:id', component : ProfileDetailsComponent },
@@ -56,7 +54,7 @@ const routes: Routes = [
   { path : 'update' , component: ProfileUpdateComponent },
   { path : 'galleries' , component: GalleriesListComponent },
   { path: "showrooms", component: ShowroomListComponent,pathMatch:'full'  },
-  { path: "CreateArtworks", component: CreateArtworkComponent,pathMatch:'full' },
+  { path: "artworks", component: CreateArtworkComponent,pathMatch:'full' },
   { path: "collection", component: CollectionComponent ,pathMatch:'full' }
 ]
 

@@ -14,7 +14,9 @@ export abstract class DataService<T> {
   }
 
   add(T): Observable<any> {
-    return this.http.post(this.endpointUrl, T);
+    return this.http.post(this.endpointUrl, JSON.stringify(T),{
+      headers: { "Content-Type": "application/json" }
+    });
   }
   update(T): Observable<any> {
     return this.http.put(this.endpointUrl, JSON.stringify(T), {
