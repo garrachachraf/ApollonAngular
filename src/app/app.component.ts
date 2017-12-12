@@ -5,7 +5,7 @@ import { WishlistService } from './wishlist/shared/wishlist.service';
 import { CollectionService } from './collection/collection.service';
 
 declare var $ :any;
-
+var OneSignal = window['OneSignal'];
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
       res =>{
         res=> this.authenticationService.isAuthenticated(true);
         this.currentUser = this.authenticationService.getToken();
+        this.sendTag(this.currentUser.id);
         this.closeModal("#loginModal");
       },
       res=> this.authenticationService.isAuthenticated(false)
@@ -41,6 +42,13 @@ export class AppComponent implements OnInit {
     this.closeModal(a);
   }
 
+  sendTag(userId: number){
+    OneSignal.push(function() {
+      console.log("sending");
+      OneSignal.sendTag("userId", userId);     
+    });
+  }
+  
   closeModal(a) {
     $(a).modal("hide");
   }
@@ -56,9 +64,11 @@ export class AppComponent implements OnInit {
         res => {
           this.isAuthenticated = true;
           this.currentUser = this.authenticationService.getToken();
-          this.authenticationService.isAuth = true;
+          this.authenticationService.isAuthenticated(true);
         },
-        error => {}
+        error => {
+          this.logout()
+        }
       )
     }
   }

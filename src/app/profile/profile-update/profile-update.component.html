@@ -1,11 +1,11 @@
-<div id="exTab2" class="container app-bg col-md-6">
+<div id="exTab2" class="container app-bg col-lg-12">
   <ul class="nav nav-tabs">
     <li class="active">
       <a  href="#1" data-toggle="tab">Address</a>
     </li>
-    <li><a href="#2" data-toggle="tab">Without clearfix</a>
+    <li><a href="#2" data-toggle="tab">Avatar </a>
     </li>
-    <li><a href="#3" data-toggle="tab">Solution</a>
+    <li><a href="#3" data-toggle="tab">Password & email </a>
     </li>
   </ul>
 
@@ -17,27 +17,28 @@
             <div class="form-group bordered-row">
               <label class="col-sm-3 control-label">First Name:</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" id="" placeholder="First name...">
+                <input type="text" class="form-control"  placeholder="First name..." value="{{ user.firstname }}" #firstname>
 
               </div>
             </div>
             <div class="form-group bordered-row">
               <label class="col-sm-3 control-label">Last Name:</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" id="" placeholder="Last name...">
+                <input type="text" class="form-control" placeholder="Last name..." value="{{ user.lastname }}" #lastname>
               </div>
             </div>
 
             <div class="form-group bordered-row">
               <label class="col-sm-3 control-label">Street:</label>
               <div class="col-sm-6">
-                <textarea name="" rows="3" class="form-control textarea-autosize" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 78px;"></textarea>
+                <textarea name="" rows="3" class="form-control textarea-autosize" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 78px;" #street >{{ user.street }}</textarea>
               </div>
             </div>
             <div class="form-group bordered-row">
               <label class="col-sm-3 control-label">Country:</label>
               <div class="col-sm-6">
                 <select class="form-control" (change)="getstates(cc.value)" #cc>
+                  <option disabled></option>
                   <option *ngFor="let c of country" value="{{ c.code }}">{{ c.name }}</option>
                 </select>
               </div>
@@ -46,7 +47,8 @@
             <div class="form-group bordered-row">
               <label class="col-sm-3 control-label">State:</label>
               <div class="col-sm-6">
-                <select class="form-control" >
+                <select class="form-control" #state>
+                  <option disabled></option>
                   <option *ngFor="let s of states" value="{{ s.region }}">{{ s.region }}</option>
                 </select>
               </div>
@@ -55,24 +57,78 @@
             <div class="form-group bordered-row">
               <label class="col-sm-3 control-label">City:</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" id="" placeholder="Website...">
+                <input type="text" class="form-control"  placeholder="City..." value="{{ user.city }}" #city>
               </div>
             </div>
+            <div class="form-group  bordered-row">
+              <label class="col-sm-3 control-label">Phone Number:</label>
+              <div class="col-sm-6" *ngIf="confirmnum">
+                <div>
+                      <ngx-intl-tel-input   [(value)]="phone_number" ></ngx-intl-tel-input>
+                      <button class="btn btn-info" (click)="verifynumber('+' + phone_number)" >Verify Number</button>
 
+                </div>
+
+              <input type="hidden"  value="{{ phone_number }}" #phone>
+              </div>
+              <div class="col-sm-6" *ngIf="!confirmnum">
+              <div class="col-sm-6 " >
+                <input type="text" class="form-control " placeholder="123456" #confirm>
+              </div>
+                <div>
+              <button class="btn btn-info" (click)="checkconfirme(confirm.value)" >confirm code</button>
+                <div *ngIf="confirmed" style="color: #66bb6a"><br><br>Phone Number Confirmed</div></div>
+              </div>
+
+            </div>
           </form>
           <div class="button-pane mrg20T">
-            <button class="btn btn-info">Save</button>
-            <button class="btn btn-link font-gray-dark">Cancel</button>
+            <button class="btn btn-info" (click)="saveAdress(firstname.value, lastname.value , street.value , cc.value , state.value , city.value , phone_number)">Save</button>
+            <button class="btn btn-link font-gray-dark" >Cancel</button>
           </div>
         </div>
       <br>
 
     </div>
     <div class="tab-pane" id="2">
-      <h3>Notice the gap between the content and tab after applying a background color</h3>
+      <br>
+      <div class="form-group app-update-flex" >
+        <label>Avatar</label>
+        <div class="thumbnail-container" *ngIf="thumbnail">
+          <div class="thumbnail app-thembnail">
+            <img src="/assets/thumbnail-placeholder.png" class="app-thembnail">
+          </div>
+        </div>
+        <app-media-upload (eventemetter)="apollonavartar($event)"></app-media-upload>
+        <button type="button" class="btn btn-info" (click)="SaveAvatar()" [disabled]="!avatar">Save</button>
+      </div>
     </div>
     <div class="tab-pane" id="3">
-      <h3>add clearfix to tab-content (see the css)</h3>
+      <br><br>
+      <form class="form-horizontal">
+        <div class="form-group bordered-row">
+          <label class="col-sm-3 control-label">Email:</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control"  placeholder="Email..." value="{{ user.email }}" #email>
+
+          </div>
+        </div>
+        <div class="form-group bordered-row">
+          <label class="col-sm-3 control-label">Password:</label>
+          <div class="col-sm-6">
+            <input type="password" class="form-control"  placeholder="Password..." #pass>
+
+          </div>
+        </div>
+        <div class="form-group bordered-row">
+          <label class="col-sm-3 control-label">Password Confirmation:</label>
+          <div class="col-sm-6">
+            <input type="password" class="form-control"  placeholder="Password Confirmation..." #pass2>
+          </div>
+        </div>
+        <button class="btn btn-info" [disabled]="pass.value != pass2.value || pass.value.length < 8" (click)="Changepass(pass.value)"> change password</button>
+        <br><br><br>
+      </form>
     </div>
   </div>
 </div>

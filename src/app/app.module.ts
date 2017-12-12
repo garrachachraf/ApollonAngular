@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import { AgmCoreModule } from '@agm/core';
+=======
+import { AuthGuard } from './authentication/auth-guard.service';
+>>>>>>> 08462e5d3d76b831e0dc23113084a89564f43f78
 import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -13,8 +18,8 @@ import { ShowroomListComponent } from './showroom/showroom-list/showroom-list.co
 import { ShowroomDetailComponent } from './showroom/showroom-detail/showroom-detail.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ShareModule } from "ng2share/share.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ShareModule } from 'ng2share/share.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { CollectionComponent } from './collection/collection.component';
@@ -23,17 +28,18 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { CreateArtworkComponent } from './artwork/create-artwork/create-artwork.component';
 
 import { RegisteruserComponent } from './registeruser/registeruser.component';
-import {BsDropdownModule} from "ngx-bootstrap";
-import {NgxIntlTelInputComponent, NgxIntlTelInputModule, NgxIntlTelInputService} from "ngx-intl-tel-input";
-import {MediaUploadService} from "./media-upload/media-upload.service";
-import {MediaUploadComponent} from "./media-upload/media-upload.component";
-import {FormWizardModule} from "angular2-wizard/dist";
-import {ProfileDetailsComponent} from "./profile/profile-details/profile-details.component";
-import {SendsmsService} from "./registeruser/shared/sendsms.service";
-import {ProfileService} from "./profile/shared/profile.service";
+import {BsDropdownModule} from 'ngx-bootstrap';
+import {NgxIntlTelInputComponent, NgxIntlTelInputModule, NgxIntlTelInputService} from 'ngx-intl-tel-input';
+import {MediaUploadService} from './media-upload/media-upload.service';
+import {MediaUploadComponent} from './media-upload/media-upload.component';
+import {FormWizardModule} from 'angular2-wizard/dist';
+import {ProfileDetailsComponent} from './profile/profile-details/profile-details.component';
+import {SendsmsService} from './registeruser/shared/sendsms.service';
+import {ProfileService} from './profile/shared/profile.service';
 import { ShowroomFormComponent } from './showroom/showroom-form/showroom-form.component';
-import {FollowService} from "./user/follow/follow.service";
+import {FollowService} from './user/follow/follow.service';
 import { ProfileUpdateComponent } from './profile/profile-update/profile-update.component';
+import {EmailvalidationService} from './registeruser/shared/emailvalidation.service';
 import {AdressApiService} from "./profile/shared/addressApi.service";
 import { GalleriesListComponent } from './galleries/components/galleries-list/galleries-list.component';
 import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
@@ -50,7 +56,11 @@ const routes: Routes = [
   { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent},
-  { path : 'showroomform', component : ShowroomFormComponent},
+  {
+    path : 'showroomform',
+    component : ShowroomFormComponent,
+    canActivate: [AuthGuard]
+  },
   { path : 'update' , component: ProfileUpdateComponent },
   { path : 'galleries' , component: GalleriesListComponent },
   { path: "showrooms", component: ShowroomListComponent,pathMatch:'full'  },
@@ -78,6 +88,7 @@ const routes: Routes = [
     OrderComponent,
     ShowroomFormComponent,
     ProfileUpdateComponent,
+
     GalleriesListComponent,
     GalleriesListItemComponent,
     GalleriesListScrollerComponent
@@ -90,6 +101,7 @@ const routes: Routes = [
     FormsModule,
     FormWizardModule,
     ShareModule,
+    ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -111,7 +123,9 @@ const routes: Routes = [
     SendsmsService,
     ProfileService,
     FollowService,
-    AdressApiService
+    AdressApiService,
+    EmailvalidationService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
