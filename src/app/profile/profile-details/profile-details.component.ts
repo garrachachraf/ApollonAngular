@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../shared/model/user.module';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProfileService} from '../shared/profile.service';
 import {HttpClient} from '@angular/common/http';
 import {FollowService} from '../../user/follow/follow.service';
@@ -18,7 +18,7 @@ export class ProfileDetailsComponent implements OnInit {
   followers: User[];
   followersNbr: number;
   showrooms: Showroom[];
-  constructor(private route: ActivatedRoute , private http: HttpClient , private followService: FollowService , private showroomservice: ShowroomService) {
+  constructor(private routers: Router , private route: ActivatedRoute , private http: HttpClient , private followService: FollowService , private showroomservice: ShowroomService) {
     const profileservice = new ProfileService(this.http);
     const id = this.route.snapshot.paramMap.get('id');
 
@@ -49,6 +49,9 @@ export class ProfileDetailsComponent implements OnInit {
         this.showrooms = res;
       }
     );
+  }
+  goTo( Id: number , link: string){
+    this.routers.navigate([link + '/' + Id]);
   }
 
 }
