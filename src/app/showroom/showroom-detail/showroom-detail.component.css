@@ -58,3 +58,8 @@
 .sh-options span:hover{
     color: white;
 }
+
+.showroom-description{
+    background-color: white;
+    border-radius: 10px;
+}
