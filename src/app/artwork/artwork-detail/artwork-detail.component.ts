@@ -12,20 +12,18 @@ declare var $ :any;
   selector: "app-artwork-detail",
   templateUrl: "./artwork-detail.component.html",
   styleUrls: ["./artwork-detail.component.css"],
-  providers: [CollectionService]
 
 })
 export class ArtworkDetailComponent implements OnInit {
   @Input() artwork: Artwork;
   @Input() artworkin: boolean;
-
   artWorks: Array<Artwork>;
   collections: Collection[];
   collection: Collection;
-
   user: User;
   // tslint:disable-next-line:no-output-on-prefix
-  isAuthenticated: boolean;
+@Output() onAdd = new EventEmitter();
+isAuthenticated: boolean;
 
   constructor(
     private authenticationService:AuthenticationService,
@@ -56,6 +54,7 @@ export class ArtworkDetailComponent implements OnInit {
 
 
   addArtToCollection(artwork: Artwork) {
+    this.CollectionService.addArtworkToStream(artwork);
     this.user = this.authenticationService.getToken();
     console.log("yoddfsdfdf" + this.user.id);
     this.authenticationService.getToken();
@@ -67,7 +66,15 @@ export class ArtworkDetailComponent implements OnInit {
         console.log(this.collection);
         this.collection.artworks.push(artwork);
         this.artWorks = this.collection.artworks;
-        this.CollectionService.update(this.collection).subscribe(err => {
+         console.log("hello");
+        this.CollectionService.update(this.collection).subscribe( res=>{
+
+
+
+
+
+      },
+      err => {
           console.log(err);
         });
       }

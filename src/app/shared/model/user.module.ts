@@ -5,15 +5,16 @@ export class User{
     email: string;
     userName: string;
     password: string;
-    gender: string;
-    imagePath: string;
-    street: string;
-    city: string;
-    state: string;
-    country: string;
-    zipCode: string;
+    confirmPassword?: string;
+    gender?: string;
+    imagePath?: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    zipCode?: string;
     role: string;
-
+    PhoneNumber?: string;
     //followings : List;
     //avatar : Media;
 

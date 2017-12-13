@@ -47,6 +47,7 @@ export class GalleriesListComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*
     this.subscription = this._mapService.navItem$.subscribe(
       item => this.mapInit = item);
     //create search FormControl
@@ -89,7 +90,8 @@ export class GalleriesListComponent implements OnInit {
 
     console.log('Start: ' + new Date());
 
-  }
+  */
+}
 
 
   onReady(map) {

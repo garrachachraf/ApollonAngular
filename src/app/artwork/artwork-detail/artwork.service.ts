@@ -10,7 +10,7 @@ import { Observable } from "rxjs/Observable";
 export class ArtworkService extends DataService<Showroom>{
 
   constructor(http:HttpClient){
-      super(http,+AppSettings.API_ENDPOINT+"/ArtWork");
+      super(http,AppSettings.API_ENDPOINT+"ArtWork");
     }
 
   getArtworks(page:number): Observable<Artwork[]> {
