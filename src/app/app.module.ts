@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { AgmCoreModule } from '@agm/core';
-=======
 import { AuthGuard } from './authentication/auth-guard.service';
->>>>>>> 08462e5d3d76b831e0dc23113084a89564f43f78
 import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
