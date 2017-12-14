@@ -43,6 +43,16 @@ import { GalleriesListItemComponent } from './galleries/components/galleries-lis
 import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { Routes, RouterModule } from '@angular/router';
+import {TicketComponent} from './ticket/ticket.component';
+import {EventComponent} from './event/event.component';
+import {EventCreateComponent} from './event/event-create/event-create.component';
+import {EventDetailComponent} from './event/event-detail/event-detail.component';
+import {EventHappeningComponent} from './event/event-happening/event-happening.component';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
+import {MyDatePickerModule} from 'mydatepicker';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {EventService} from './event/event.service';
+import {TicketService} from './ticket/ticket.service';
 const routes: Routes = [
   { path : '', component : HomeComponent},
   { path : 'showroom/:id', component : ShowroomDetailComponent},
@@ -60,10 +70,14 @@ const routes: Routes = [
   { path : 'galleries' , component: GalleriesListComponent },
   { path : 'update' , component: ProfileUpdateComponent },
   { path : 'galleries' , component: GalleriesListComponent },
-  { path: "showrooms", component: ShowroomListComponent,pathMatch:'full'  },
-  { path: "artworks", component: CreateArtworkComponent,pathMatch:'full' },
-  { path: "collection", component: CollectionComponent ,pathMatch:'full' }
-]
+  { path: 'showrooms', component: ShowroomListComponent, pathMatch: 'full'  },
+  { path: 'artworks', component: CreateArtworkComponent, pathMatch: 'full' },
+  { path: 'collection', component: CollectionComponent , pathMatch: 'full' },
+  { path : 'events', component : EventComponent},
+  { path : 'ticket', component : TicketComponent},
+  { path : 'event/:id', component : EventCreateComponent},
+  { path : 'eventss', component : EventComponent},
+];
 
 @NgModule({
   declarations: [
@@ -88,7 +102,13 @@ const routes: Routes = [
 
     GalleriesListComponent,
     GalleriesListItemComponent,
-    GalleriesListScrollerComponent
+    GalleriesListScrollerComponent,
+
+    TicketComponent,
+    EventComponent,
+    EventCreateComponent,
+    EventDetailComponent,
+    EventHappeningComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -106,7 +126,11 @@ const routes: Routes = [
       apiKey: 'AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs',
       libraries: ['places']
     }),
-    VirtualScrollModule
+    VirtualScrollModule,
+
+    PdfViewerModule,
+    MyDatePickerModule,
+    NgxPaginationModule,
   ],
   providers: [
     {
@@ -122,7 +146,9 @@ const routes: Routes = [
     FollowService,
     AdressApiService,
     EmailvalidationService,
-    AuthGuard
+    AuthGuard,
+    EventService,
+    TicketService
   ],
   bootstrap: [AppComponent]
 })
