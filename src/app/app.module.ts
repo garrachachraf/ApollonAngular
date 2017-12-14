@@ -37,7 +37,7 @@ import { ShowroomFormComponent } from './showroom/showroom-form/showroom-form.co
 import {FollowService} from './user/follow/follow.service';
 import { ProfileUpdateComponent } from './profile/profile-update/profile-update.component';
 import {EmailvalidationService} from './registeruser/shared/emailvalidation.service';
-import {AdressApiService} from "./profile/shared/addressApi.service";
+import {AdressApiService} from './profile/shared/addressApi.service';
 import { GalleriesListComponent } from './galleries/components/galleries-list/galleries-list.component';
 import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
 import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
@@ -45,12 +45,10 @@ import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path : '', component : HomeComponent},
-  { path : 'showrooms', component : ShowroomListComponent},
   { path : 'showroom/:id', component : ShowroomDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
-  { path : 'collection', component : CollectionComponent},
+  { path : 'profile', component : ProfileDetailsComponent , canActivate: [AuthGuard] },
   { path : 'profile/:id', component : ProfileDetailsComponent },
-  { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent},
   {
@@ -58,6 +56,8 @@ const routes: Routes = [
     component : ShowroomFormComponent,
     canActivate: [AuthGuard]
   },
+  { path : 'update' , component: ProfileUpdateComponent , canActivate: [AuthGuard]},
+  { path : 'galleries' , component: GalleriesListComponent },
   { path : 'update' , component: ProfileUpdateComponent },
   { path : 'galleries' , component: GalleriesListComponent },
   { path: "showrooms", component: ShowroomListComponent,pathMatch:'full'  },
@@ -101,7 +101,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
-    ReactiveFormsModule,
+
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs',
       libraries: ['places']

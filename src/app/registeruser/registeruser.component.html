@@ -18,7 +18,7 @@
 
           <div class="form-group">
             <label>Username:</label>
-            <input type="text" placeholder="Enter UserName Here.." class="form-control" formControlName="username">
+            <input type="text" placeholder="Enter UserName Here.." class="form-control" formControlName="userName">
           </div>
 
 
@@ -45,9 +45,23 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-lg btn-info" [disabled]="!rForm.valid">Submit</button>
+          <button type="submit" class="btn btn-lg btn-info" [disabled]="!rForm.valid"  data-toggle="modal" data-target="#confirmationModal" >Submit</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <br>
+      <h4 class="modal-title">Account Created , You can login Now</h4>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+
+        <button (click)="goHome()" type="button" class="btn btn-primary">OK</button>
+      </div>
     </div>
   </div>
 </div>
