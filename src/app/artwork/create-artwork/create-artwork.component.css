@@ -1,0 +1,27 @@
+.app-bg {
+  background-color: white;
+}
+
+.bordered-row {
+  border-bottom: 0.07rem dashed #ebedf2;
+  padding-bottom: 15px;
+}
+
+.app-thembnail {
+  width: 160px;
+  height: 160px;
+}
+
+.app-thembnail img {
+  border-radius: 5px;
+  width: 160px;
+  height: 150px;
+  margin-bottom: -50px;
+}
+
+.app-update-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

@@ -13,6 +13,7 @@
           <li routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a>Home</a></li>
           <li ><a>Artists</a></li>
           <li routerLink="showrooms" routerLinkActive="active"><a >Showrooms</a></li>
+          <li routerLink="artworks" ><a>Artworks</a></li>
           <li routerLink="galleries" routerLinkActive="active"><a>Galleries</a></li>
           <li routerLink="events" routerLinkActive="active"><a>Events</a></li>
         </ul>
@@ -120,34 +121,10 @@
   </div><!-- /.modal -->
 
   <!-- /.collectionmodel  -->
-<div class="modal fade" tabindex="-1" role="dialog" id="collectionModal">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h3 style="text-align: center">your favorite artwork </h3>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-offset-2 col-lg-8">
-              <app-collection></app-collection>
-            </div>
-            <!-- /.col-xs-12 -->
-          </div>
-        </div>
-        <div class="modal-footer">
-          <input type="submit" id="btn-collection" class="btn btn-custom" value="close" (click)="closeCollection('#collectionModal')">
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
 
-  <app-wishlist></app-wishlist>
+<app-collection></app-collection>
+
+<app-wishlist></app-wishlist>
 
 
 

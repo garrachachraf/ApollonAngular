@@ -1,3 +1,4 @@
+import { AgmCoreModule } from '@agm/core';
 import { AuthGuard } from './authentication/auth-guard.service';
 import { OrderComponent } from './wishlist/order/order.component';
 import { AuthenticationService } from './authentication/authentication.service';
@@ -8,7 +9,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { RouterModule, Routes } from '@angular/router';
 import { RatingComponent } from './artwork/rating/rating.component';
 import { ArtworkDetailComponent } from './artwork/artwork-detail/artwork-detail.component';
 import { ShowroomListComponent } from './showroom/showroom-list/showroom-list.component';
@@ -22,6 +22,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { CollectionComponent } from './collection/collection.component';
 import { FollowComponent } from './user/follow/follow.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { CreateArtworkComponent } from './artwork/create-artwork/create-artwork.component';
+
 import { RegisteruserComponent } from './registeruser/registeruser.component';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {NgxIntlTelInputComponent, NgxIntlTelInputModule, NgxIntlTelInputService} from 'ngx-intl-tel-input';
@@ -39,15 +41,12 @@ import {AdressApiService} from './profile/shared/addressApi.service';
 import { GalleriesListComponent } from './galleries/components/galleries-list/galleries-list.component';
 import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
 import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
-import { AgmCoreModule } from '@agm/core';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
+import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path : '', component : HomeComponent},
-  { path : 'showrooms', component : ShowroomListComponent},
   { path : 'showroom/:id', component : ShowroomDetailComponent},
-  { path : 'artworks', component : ArtworkDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
-  { path : 'collection', component : CollectionComponent},
   { path : 'profile', component : ProfileDetailsComponent , canActivate: [AuthGuard] },
   { path : 'profile/:id', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
@@ -58,9 +57,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path : 'update' , component: ProfileUpdateComponent , canActivate: [AuthGuard]},
-  { path : 'galleries' , component: GalleriesListComponent }
-
-];
+  { path : 'galleries' , component: GalleriesListComponent },
+  { path : 'update' , component: ProfileUpdateComponent },
+  { path : 'galleries' , component: GalleriesListComponent },
+  { path: "showrooms", component: ShowroomListComponent,pathMatch:'full'  },
+  { path: "artworks", component: CreateArtworkComponent,pathMatch:'full' },
+  { path: "collection", component: CollectionComponent ,pathMatch:'full' }
+]
 
 @NgModule({
   declarations: [
@@ -74,6 +77,7 @@ const routes: Routes = [
     CollectionComponent,
     FollowComponent,
     WishlistComponent,
+    CreateArtworkComponent,
     RegisteruserComponent,
     NgxIntlTelInputComponent,
     MediaUploadComponent,
