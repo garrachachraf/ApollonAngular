@@ -20,10 +20,11 @@ export class ProfileDetailsComponent implements OnInit {
   followersNbr: number;
   showrooms: Showroom[];
   canedit = true ;
+  currentuserid : any ;
   constructor(private routers: Router , private route: ActivatedRoute , private http: HttpClient , private followService: FollowService , private showroomservice: ShowroomService) {
     const profileservice = new ProfileService(this.http);
     const id = this.route.snapshot.paramMap.get('id');
-
+    this.currentuserid = this.user.id ;
     if (id) {
       this.canedit = false ;
       profileservice.getOne(+id).subscribe(data => {this.user = data ;
@@ -55,7 +56,7 @@ export class ProfileDetailsComponent implements OnInit {
     );
   }
   goTo( Id: number , link: string){
-    //this.routers.navigate([link + '/' + Id]);
+    this.routers.navigate([link + '/' + Id]);
   }
 
 

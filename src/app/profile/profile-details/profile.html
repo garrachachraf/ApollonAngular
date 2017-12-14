@@ -53,7 +53,7 @@
       <img src="/assets/people/avatar-default.png" alt="people" *ngIf="!user.imagePath ">
     </div>
 
-    <div class="name"><a href="#">{{ user.firstname }} {{ user.lastname }} </a> <div class="ap-profile-flex" *ngIf="user.role == 'Artist'"><app-follow [artistId]="user.id" ></app-follow></div></div>
+    <div class="name"><a href="#">{{ user.firstname }} {{ user.lastname }} </a> <div class="ap-profile-flex" *ngIf="user.role == 'Artist' && user.id != currentuserid "><app-follow [artistId]="user.id" ></app-follow></div></div>
 
 
     <ul class="cover-nav">
@@ -128,7 +128,9 @@
 <div class="col-md-12">
   <div class="panel panel-default">
     <div class="panel-heading panel-heading-gray">
-      <i class="fa fa-bookmark"></i> Bookmarks
+      <i class="fa fa-bookmark"></i> Showrooms<div class="pull-right">
+        <a routerLink="/showroomform" class="btn btn-primary btn-xs">Add <i class="fa fa-plus"></i></a>
+      </div>
     </div>
     <div class="panel-body">
       <div class="row">
@@ -139,7 +141,7 @@
 
             </div>
             <a (click)="goTo(room.id , 'showroom')" *ngIf="room.artWorks">
-              <img src="{{ room.artWorks[0].mediaPath }}" alt="image" class="img-responsive" />
+              <img *ngIf="room.artWorks[0]" src="{{ room.artWorks[0].mediaPath }}" alt="image" class="img-responsive" />
             </a>
             <div class="panel-body">
               <p>{{ room.description }}</p>
