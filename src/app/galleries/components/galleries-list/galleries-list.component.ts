@@ -10,6 +10,8 @@ import {Marker} from '../../../shared/model/gallery.marker.model';
 
 import { MapService } from  '../../services/map.service';
 import {Subscription} from 'rxjs/Subscription';
+import {Event} from '../../../shared/model/event.model';
+import {isNull} from "util";
 
 @Component({
   selector: 'app-galleries-list',
@@ -39,6 +41,7 @@ export class GalleriesListComponent implements OnInit {
   geoJson: Object = null;
   map: any = null;
   geoJsonReady = false;
+  isPayed: boolean;
   mapInit: Marker= new Marker('', 11.171409, 40.890479, true);
 
   constructor(
@@ -47,7 +50,13 @@ export class GalleriesListComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*
+    let event: Event;
+    this.isPayed = true;
+    event = JSON.parse(localStorage.getItem('eventCreate'));
+    if (!isNull(event)) {
+      this.isPayed = false;
+      localStorage.removeItem('eventCreate');
+    }
     this.subscription = this._mapService.navItem$.subscribe(
       item => this.mapInit = item);
     //create search FormControl
@@ -90,8 +99,7 @@ export class GalleriesListComponent implements OnInit {
 
     console.log('Start: ' + new Date());
 
-  */
-}
+  }
 
 
   onReady(map) {

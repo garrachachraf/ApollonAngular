@@ -3,6 +3,7 @@ import {Gallery} from '../../../shared/model/gallery.model';
 import {MapService} from  '../../services/map.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Marker} from '../../../shared/model/gallery.marker.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-galleries-list-item',
@@ -14,7 +15,7 @@ export class GalleriesListItemComponent implements OnInit {
   subscription: Subscription;
   @Input()
   item: Gallery;
-  constructor(private _mapService: MapService) { }
+  constructor(private _mapService: MapService, private route: Router) { }
 
   selectedAddress(item: Marker) {
     console.log('selected nav item ' + item);
@@ -22,5 +23,9 @@ export class GalleriesListItemComponent implements OnInit {
   }
   ngOnInit() {
 
+  }
+
+  toEvent(galleryId: number){
+    this.route.navigate(['event/' + galleryId]);
   }
 }

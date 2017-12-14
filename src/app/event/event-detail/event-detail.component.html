@@ -1,0 +1,157 @@
+<div class="card-body">
+  <h4 class="card-title">{{ event.title }}</h4>
+  <p class="card-text">{{ event.description }}</p>
+
+  <a data-toggle="modal" data-target="#detailsModal" href="#" class="btn btn-primary" (click)="check()" >More info</a>
+</div>
+<br>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{ event.title }} Details</h4>
+      </div>
+      <div class="modal-body">
+          {{ event.description }} <br>
+          Starting {{ event.startDate | date:'EEEE, MMMM d, y' }} <br>
+          Until {{ event.endDate | date:'EEEE, MMMM d, y' }} <br>
+        <div class="listing-footer">
+          Organized by <a style="cursor:pointer" ><i class="fa fa-user"></i> {{ event.user.firstname }} {{ event.user.lastname }}</a>
+        </div>
+
+        In {{ event.gallery.location.address }} <br>
+        <div><img src="https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/geojson(%7B%22type%22%3A%22Point%22%2C%22coordinates%22%3A[{{event.gallery.location.latitude}}%2C{{event.gallery.location.longitude}}]%7D)/{{event.gallery.location.latitude}},{{event.gallery.location.longitude}},14.25,0,60/400x400?access_token=pk.eyJ1IjoiZ2FycmFjaCIsImEiOiJjajk1bjdmM2MxemgzMzJwNnNhYmN2bnRqIn0.Q35bIooJvU6SA0soVSaN8w" alt="Position"></div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button data-toggle="modal" data-target="#ticketModal" href="#" (click)="check()" class="btn btn-success" [disabled]="event.user.id === user.id">Buy Ticket</button>
+<!--        <button (click)="bookTicket(event)" type="button" class="btn btn-primary">Book ticket</button> -->
+          <button *ngIf="event.user.id == user.id" type="button" class="btn btn-warning" data-toggle="modal" data-target="#deleteModal">Delete</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Details Modal -->
+<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{ event.title }} Tickets</h4>
+      </div>
+      <div class="modal-body">
+          Event Capacity : {{ event.capacity }}<br><br>
+
+        <div class="progress" *ngIf="!(solded==event.capacity)">
+          <div #progress class="progress-bar progress-bar-striped active" role="progressbar"
+               aria-valuenow="solded" aria-valuemin="0" aria-valuemax="event.capacity">
+            {{ ((solded * 100) / event.capacity).toPrecision(2) }} %
+          </div>
+        </div>
+
+        <div class="progress" *ngIf="(solded==event.capacity)">
+          <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
+               aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+            100 % Event Full
+          </div>
+        </div>
+
+        {{ solded }} Ticket Solded ! <br>
+        Ticket Price : {{ event.priceTicket }} €<br>
+          Starting {{ event.startDate | date:'EEEE, MMMM d, y' }} <br>
+          Gallery Name : {{ event.gallery.name }} <br>
+        <div class="listing-footer">
+          Gallery Owner : <a style="cursor:pointer" ><i class="fa fa-user"></i>   {{ event.gallery.galleryOwner.firstname }} {{ event.gallery.galleryOwner.lastname }}</a>
+        </div>
+          Gallery Address : {{ event.gallery.location.address }} <br>
+        <br>
+        <div class="alert alert-danger" role="alert" [hidden]="!(solded==event.capacity)">
+          Sorry the event is already full, you can' buy a ticket!
+        </div>
+        <div [hidden]="(solded==event.capacity)">
+            <div class="alert alert-info" role="alert">
+              Be the first and book your ticket via paypal <br>
+              Paypal transfer to {{ event.user.firstname }} {{ event.user.lastname }} account
+            </div>
+              <form #form class="form-inline" name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_xclick">
+                <input type="hidden" name="business" value="abdelhedi.amin5@gmail.com">
+                <input type="hidden" name="currency_code" value="EUR">
+                <input type="hidden" name="item_name" value="Ticket for {{ event.title }}">
+                <input name="item_number" type="hidden" value="{{ event.id }}"/>
+                <input type="hidden" class="form-control" size="30" id="paypalAmountt" name="amount" value="10"/>
+                <input type="hidden" name="return" value="http://localhost:4200/events" />
+                <input type="hidden" name="cancel_return" value="http://localhost:4200/events/" />
+                <input type="hidden" name="custom" value={{event.title}}>
+                <!--pass your notification URL-->
+                <input name="notify_url" value="YOUR NOTIFICATION URL" type="hidden"><br/><br/>
+                <input (click)="form.submit()" type="hidden" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif" border="0"
+                            name="submit" alt="Proceed to secure payment with PayPal"/>
+            </form>
+            <hr>
+                  <form #form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="{{event.user.email}}">
+                    <input type="hidden" name="currency_code" value="EUR">
+                    <input type="hidden" name="item_name" value="Ticket for {{ event.title }}">
+                    <input name="item_number" type="hidden" value="{{event.id}}"/>
+                    <input type="hidden" class="form-control" size="30" id="paypalAmount" name="amount" value="{{event.priceTicket}}"/>
+                    <input type="hidden" name="hosted_button_id" value="6RNT8A4HBBJRE">
+                    <input type="hidden" name="return" value="http://localhost:4200/ticket" />
+                    <input type="hidden" name="cancel_return" value="http://localhost:4200/events" />
+                    <input [hidden]="(x==event.capacity)" type="image" (click)="bookTicket(event)"  (click)="form.submit()"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCba4myEK2xhpIUuY_hi8bs3n5Oquym5deGByVk6AXa05kK6ybAA"
+                      border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
+                            width="1" height="1">
+                  </form>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div [hidden]="isDeleted">
+        Are you sure,you want to delete {{ event.title }}
+        </div>
+        <br>
+        <br>
+        <div class="alert alert-danger" role="alert" [hidden]="!(solded>0)">
+          Sorry, you have already selled tickets for this event, you can't delete it anymore...
+        </div>
+        <div class="alert alert-warning" role="alert" [hidden]="!isDeleted">
+          Delete Success
+        </div>
+
+        <div class="modal-footer">
+          <div [hidden]="isDeleted">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button href="#" class="btn btn-danger" (click)="check()" (click)="deleteEvent()"  >Delete Event</button>
+          </div>
+          <div [hidden]="!isDeleted">
+            <button type="button" routerLink="eventss" routerLinkActive="active" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
