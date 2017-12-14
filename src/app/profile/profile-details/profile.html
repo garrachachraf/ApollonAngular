@@ -60,7 +60,7 @@
 
       <!-- <li><a href="user-public-timeline.html"><i class="fa fa-fw icon-ship-wheel"></i> Timeline</a></li> -->
       <li class="active"><a href="user-public-profile.html"><i class="fa fa-fw icon-user"></i> About</a></li>
-      <li><a href="/update"><i class="fa fa-fw fa-edit"></i> Edit Profile</a></li>
+      <li ><a href="/update" *ngIf="canedit"><i class="fa fa-fw fa-edit"></i> Edit Profile</a></li>
 
     </ul>
   </div>
@@ -114,8 +114,10 @@
       <div class="panel-body">
         <ul class="img-grid">
           <li *ngFor="let u of followers">
-            <a routerLink="profile/{{ u.id }}">
-              <img src="/assets/people/110/guy-6.jpg" alt="image">
+            <a routerLink="/profile/{{ u.id }}">
+              <img src="/assets/people/110/guy-6.jpg" alt="image" *ngIf="!u.imagePath">
+              <img src="{{ u.imagePath }}" alt="{{ u.userName }}" *ngIf="u.imagePath">
+
             </a>
           </li>
 
@@ -162,3 +164,4 @@
 
 
 </div>
+

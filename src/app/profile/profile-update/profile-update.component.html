@@ -83,8 +83,7 @@
             </div>
           </form>
           <div class="button-pane mrg20T">
-            <button class="btn btn-info" (click)="saveAdress(firstname.value, lastname.value , street.value , cc.value , state.value , city.value , phone_number)">Save</button>
-            <button class="btn btn-link font-gray-dark" >Cancel</button>
+            <button class="btn btn-info" (click)="saveAdress(firstname.value, lastname.value , street.value , cc.value , state.value , city.value , phone_number)"  data-toggle="modal" data-target="#confirmationModal">Save</button>
           </div>
         </div>
       <br>
@@ -100,7 +99,7 @@
           </div>
         </div>
         <app-media-upload (eventemetter)="apollonavartar($event)"></app-media-upload>
-        <button type="button" class="btn btn-info" (click)="SaveAvatar()" [disabled]="!avatar">Save</button>
+        <button type="button" class="btn btn-info" (click)="SaveAvatar()" [disabled]="!avatar"  data-toggle="modal" data-target="#confirmationModal">Save</button>
       </div>
     </div>
     <div class="tab-pane" id="3">
@@ -126,10 +125,25 @@
             <input type="password" class="form-control"  placeholder="Password Confirmation..." #pass2>
           </div>
         </div>
-        <button class="btn btn-info" [disabled]="pass.value != pass2.value || pass.value.length < 8" (click)="Changepass(pass.value)"> change password</button>
+        <button class="btn btn-info" [disabled]="pass.value != pass2.value || pass.value.length < 8" (click)="Changepass(pass.value)"  data-toggle="modal" data-target="#confirmationModal"> change password</button>
         <br><br><br>
       </form>
     </div>
   </div>
 </div>
 
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <br>
+      <h4 class="modal-title"></h4>
+      <div class="modal-body">
+        <h3>Success</h3>
+      </div>
+      <div class="modal-footer">
+
+        <button (click)="goHome()" type="button" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
