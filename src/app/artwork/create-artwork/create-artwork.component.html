@@ -38,14 +38,20 @@
             <div class="col-sm-6">
               <input type="number"  name="price" class="form-control" value="{{ Artwork.price }}" #price>
             </div>
-
           </div>
+            <div class="form-group  bordered-row">
+
+              <div class="col-sm-6">
+                  <re-captcha (resolved)="resolved($event)" siteKey="6Ldd8TwUAAAAAGQM0hgHdcv_HyOB1tWfHLuBDo2x"></re-captcha>
+              </div>
+            </div>
+
          <div class="button-pane mrg20T">
           <button class="btn btn-info" type="button" (click)="oncreate(title.value,description.value,price.value)" >Save</button>
           <button class="btn btn-link font-gray-dark">Cancel</button>
         </div>
         </form>
-       
+
       </div>
       <br>
 

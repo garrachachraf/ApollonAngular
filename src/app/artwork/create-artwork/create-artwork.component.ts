@@ -10,6 +10,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {FormsModule, FormGroup, FormControl, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import { ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { RecaptchaModule } from "ng-recaptcha";
+import { RecaptchaFormsModule } from "ng-recaptcha/forms";
 
 @Component({
   selector: "app-create-artwork",
@@ -25,6 +27,9 @@ export class CreateArtworkComponent implements OnInit {
     private artworkService: ArtworkService,
     private http: HttpClient
   ) {}
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
+  }
   thumbnail = true;
   user = new User();
   Artwork = new Artwork();
@@ -36,20 +41,18 @@ export class CreateArtworkComponent implements OnInit {
     console.log(this.user);
   }
   apollonavartar(avatar) {
-    this.Artwork.mediaPath= 'http://127.0.0.1:18080/img/' + JSON.parse(avatar).path;
+    this.Artwork.mediaPath =
+      "http://127.0.0.1:18080/img/" + JSON.parse(avatar).path;
     this.thumbnail = false;
     console.log(avatar);
   }
-  oncreate(title,description,price) {
-  this.Artwork.title=title;
-  this.Artwork.descreption=description;
-  this.Artwork.price=price;
-  this.Artwork.artist=this.user;
-  this.artworkService.add(this.Artwork).subscribe(
- res=>{
-       console.log(this.Artwork);
-      }
-
-   );
+  oncreate(title, description, price) {
+    this.Artwork.title = title;
+    this.Artwork.descreption = description;
+    this.Artwork.price = price;
+    this.Artwork.artist = this.user;
+    this.artworkService.add(this.Artwork).subscribe(res => {
+      console.log(this.Artwork);
+    });
   }
 }

@@ -5,7 +5,7 @@ import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import { RecaptchaModule } from "ng-recaptcha";
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -103,17 +103,18 @@ const routes: Routes = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs',
-      libraries: ['places']
+      apiKey: "AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs",
+      libraries: ["places"]
     }),
-    VirtualScrollModule
+    VirtualScrollModule,
+    RecaptchaModule.forRoot()
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-  },
+    },
     AuthenticationService,
     NgxIntlTelInputService,
     MediaUploadService,
@@ -126,4 +127,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
