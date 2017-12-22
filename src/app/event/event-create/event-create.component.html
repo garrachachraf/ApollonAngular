@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="col-md-6 col-sm-12">
+  <div class="event">
+
+
+        <h1 style="color: sienna">Create Event</h1>
+        <br>
+    <form  #f="ngForm" (ngSubmit)="onSubmit(f,title.value,description.value,capacity.value,ticketPrice.value,startDate,endDate)" novalidate>
+
+            <div class="alert alert-danger" role="alert" [hidden]="f.valid">
+              Form Missing
+            </div>
+
+            <label class="wh" >Event Name</label>
+            <input type="text" name="title "placeholder="Enter Event Name" class="form-control" ngModel required #title><br>
+
+            <label class="wh" >Event Description</label>
+            <input type="text" name="description" placeholder="Enter Event Desrription" class="form-control" ngModel required #description><br>
+
+            <label class="wh" >Event Capacity</label>
+            <input type="number" name="capacity" placeholder="Enter Event Capacity" class="form-control" ngModel required #capacity>
+
+            <label class="wh" >Ticket Price</label>
+            <input type="number" name="ticketPrice" placeholder="Enter Ticket Price" class="form-control" ngModel required #ticketPrice>  <br>
+
+             <div class="alert alert-danger" role="alert" [hidden]="isValidDate">
+               Finish Date must be greater than the Start Date
+            </div>
+
+            <label class="wh" >Start Date </label>
+            <my-date-picker name="startDate" [options]="myDatePickerOptions"
+                            [(ngModel)]="startDate"></my-date-picker><br>
+
+            <label class="wh" >Finish Date </label>
+            <my-date-picker name="endDate" [options]="myDatePickerOptions"
+                            [(ngModel)]="endDate"></my-date-picker><br><br>
+
+      <button data-toggle="modal" (click)="dt(startDate,endDate)" data-target="#rentModal" href="#" [disabled]="(!endDate || !startDate)" class="btn btn-primary">Create event</button>
+
+    </form>
+
+
+
+  </div>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <div class="gallery">
+      <h1 style="color: sienna">Rent Gallery</h1>
+
+         <div class="listing-content">
+
+           <div class="listing-title">
+             <h4>{{ gallery?.name }}</h4>
+
+           </div>
+
+             <i class="fa fa-user-secret"></i> {{ gallery?.pricing.securityDeposit }} $ security Deposit<br>
+            <i class="fa fa-users"></i> {{ gallery?.pricing.cleaningFee }} $ cleaningFee
+             <div class="listing-img-content">
+               <span class="listing-price"> <i>{{ gallery?.surface }}/ m²</i></span>
+             </div>
+
+           <div class="listing-footer">
+             <a style="cursor:pointer" ><i class="fa fa-user"></i>  {{ gallery?.galleryOwner.firstname }} {{ gallery?.galleryOwner.lastname }}</a>
+           </div>
+           <i class="fa fa-map-marker"></i>
+           {{ gallery?.location.address }}
+           <div class="listing-carousel">
+             <div><img src="https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/geojson(%7B%22type%22%3A%22Point%22%2C%22coordinates%22%3A[{{gallery?.location.latitude}}%2C{{gallery?.location.longitude}}]%7D)/{{gallery?.location.latitude}},{{gallery?.location.longitude}},14.25,0,60/500x500?access_token=pk.eyJ1IjoiZ2FycmFjaCIsImEiOiJjajk1bjdmM2MxemgzMzJwNnNhYmN2bnRqIn0.Q35bIooJvU6SA0soVSaN8w" alt="Position"></div>
+           </div>
+
+         </div>
+       </div>
+   </div>
+
+
+   </div>
+   <!-- Rent Modal -->
+<div class="modal fade" *ngIf="isValid" id="rentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Payment of renting {{ gallery?.name }}</h4>
+      </div>
+      <div class="modal-body">
+        From {{ sDate }}<br>
+        Until  {{ eDate }}<br>
+        Rent Charge : {{ fee }}€<br><br>
+        <div class="alert alert-info" role="alert">
+          Payment transfer to {{ gallery?.galleryOwner.firstname }} {{ gallery?.galleryOwner.lastname }}
+        </div>
+
+        <hr>
+        <form #form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="{{gallery?.galleryOwner.email}}">
+          <input type="hidden" name="currency_code" value="EUR">
+          <input type="hidden" name="item_name" value="Renting fees of {{ gallery?.name }}">
+          <input name="item_number" type="hidden" value="{{ gallery?.id }}"/>
+          <input type="hidden" class="form-control" size="30" id="paypalAmount" name="amount" value="{{fee}}"/>
+          <input type="hidden" name="hosted_button_id" value="6RNT8A4HBBJRE">
+          <input type="hidden" name="return" value="http://localhost:4200/events" />
+          <input type="hidden" name="cancel_return" value="http://localhost:4200/galleries" />
+          <input type="image" (click)="form.submit()"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCba4myEK2xhpIUuY_hi8bs3n5Oquym5deGByVk6AXa05kK6ybAA"
+                 border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+          <img alt="" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
+               width="1" height="1">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

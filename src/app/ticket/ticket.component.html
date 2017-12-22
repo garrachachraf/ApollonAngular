@@ -1,0 +1,20 @@
+<div class="ticket" >
+  <div class="alert alert-danger" role="alert" [hidden]="!notBookedTicket">
+    You are in the wrong place !
+  </div>
+
+  <div [hidden]="notBookedTicket">
+    <div class="alert alert-info" role="alert">
+      Order Success, Your ticket is ready !<br><br>
+      <div [hidden]="viewTicket" >
+      <a class="btn btn-primary" (click)="viewTick()">Get your ticket preview</a>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div *ngIf="viewTicket">
+        <a href="http://localhost:18080/img/Ticket.pdf" class="btn btn-success" >Download your ticket</a>
+        <pdf-viewer [src]="'http://localhost:18080/img/Ticket.pdf'"></pdf-viewer>
+    </div>
+  </div>
+</div>

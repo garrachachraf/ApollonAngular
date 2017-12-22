@@ -5,6 +5,7 @@ import {EmailvalidationService} from '../../registeruser/shared/emailvalidation.
 import {User} from '../../shared/model/user.module';
 import {ProfileService} from '../shared/profile.service';
 import {SendsmsService} from '../../registeruser/shared/sendsms.service';
+declare var $ :any;
 
 @Component({
   selector: 'app-profile-update',
@@ -103,6 +104,10 @@ export class ProfileUpdateComponent implements OnInit {
     if (code === this.random ) {
       this.confirmed = true ;
     }
+
+  }
+  goHome() {
+    $("#confirmationModal").modal("hide");
 
   }
 }

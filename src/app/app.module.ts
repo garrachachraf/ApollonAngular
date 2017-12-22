@@ -37,20 +37,28 @@ import { ShowroomFormComponent } from './showroom/showroom-form/showroom-form.co
 import {FollowService} from './user/follow/follow.service';
 import { ProfileUpdateComponent } from './profile/profile-update/profile-update.component';
 import {EmailvalidationService} from './registeruser/shared/emailvalidation.service';
-import {AdressApiService} from "./profile/shared/addressApi.service";
+import {AdressApiService} from './profile/shared/addressApi.service';
 import { GalleriesListComponent } from './galleries/components/galleries-list/galleries-list.component';
 import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
 import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { Routes, RouterModule } from '@angular/router';
+import {TicketComponent} from './ticket/ticket.component';
+import {EventComponent} from './event/event.component';
+import {EventCreateComponent} from './event/event-create/event-create.component';
+import {EventDetailComponent} from './event/event-detail/event-detail.component';
+import {EventHappeningComponent} from './event/event-happening/event-happening.component';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
+import {MyDatePickerModule} from 'mydatepicker';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {EventService} from './event/event.service';
+import {TicketService} from './ticket/ticket.service';
 const routes: Routes = [
   { path : '', component : HomeComponent},
-  { path : 'showrooms', component : ShowroomListComponent},
   { path : 'showroom/:id', component : ShowroomDetailComponent},
   { path : 'reg' , component : RegisteruserComponent },
-  { path : 'collection', component : CollectionComponent},
+  { path : 'profile', component : ProfileDetailsComponent , canActivate: [AuthGuard] },
   { path : 'profile/:id', component : ProfileDetailsComponent },
-  { path : 'profile', component : ProfileDetailsComponent },
   { path : 'collection', component : CollectionComponent},
   { path : 'order', component : OrderComponent},
   {
@@ -58,12 +66,18 @@ const routes: Routes = [
     component : ShowroomFormComponent,
     canActivate: [AuthGuard]
   },
+  { path : 'update' , component: ProfileUpdateComponent , canActivate: [AuthGuard]},
+  { path : 'galleries' , component: GalleriesListComponent },
   { path : 'update' , component: ProfileUpdateComponent },
   { path : 'galleries' , component: GalleriesListComponent },
-  { path: "showrooms", component: ShowroomListComponent,pathMatch:'full'  },
-  { path: "artworks", component: CreateArtworkComponent,pathMatch:'full' },
-  { path: "collection", component: CollectionComponent ,pathMatch:'full' }
-]
+  { path: 'showrooms', component: ShowroomListComponent, pathMatch: 'full'  },
+  { path: 'artworks', component: CreateArtworkComponent, pathMatch: 'full' },
+  { path: 'collection', component: CollectionComponent , pathMatch: 'full' },
+  { path : 'events', component : EventComponent},
+  { path : 'ticket', component : TicketComponent},
+  { path : 'event/:id', component : EventCreateComponent},
+  { path : 'eventss', component : EventComponent},
+];
 
 @NgModule({
   declarations: [
@@ -88,7 +102,13 @@ const routes: Routes = [
 
     GalleriesListComponent,
     GalleriesListItemComponent,
-    GalleriesListScrollerComponent
+    GalleriesListScrollerComponent,
+
+    TicketComponent,
+    EventComponent,
+    EventCreateComponent,
+    EventDetailComponent,
+    EventHappeningComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -101,13 +121,20 @@ const routes: Routes = [
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
-    ReactiveFormsModule,
+
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs",
       libraries: ["places"]
     }),
     VirtualScrollModule,
+
     RecaptchaModule.forRoot()
+
+
+    PdfViewerModule,
+    MyDatePickerModule,
+    NgxPaginationModule,
+
   ],
   providers: [
     {
@@ -123,7 +150,9 @@ const routes: Routes = [
     FollowService,
     AdressApiService,
     EmailvalidationService,
-    AuthGuard
+    AuthGuard,
+    EventService,
+    TicketService
   ],
   bootstrap: [AppComponent]
 })

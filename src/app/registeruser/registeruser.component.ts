@@ -5,7 +5,8 @@ import {ProfileService} from '../profile/shared/profile.service';
 import {User} from '../shared/model/user.module';
 import {EmailvalidationService} from './shared/emailvalidation.service';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-
+import {Router} from "@angular/router";
+declare var $ :any;
 @Component({
   selector: 'app-registeruser',
   templateUrl: './registeruser.component.html',
@@ -14,11 +15,11 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class RegisteruserComponent implements OnInit {
 
-  constructor( private profileservice: ProfileService , private fb: FormBuilder , private emailservice: EmailvalidationService   ) {
+  constructor(private router: Router , private profileservice: ProfileService , private fb: FormBuilder , private emailservice: EmailvalidationService   ) {
     this.rForm = fb.group({
       firstname : [null, Validators.compose([Validators.required, Validators.minLength(3)])],
       lastname : [null, Validators.required],
-      username : [null, Validators.required],
+      userName : [null, Validators.required],
       email : [null, Validators.required , this.checkthem.bind(this) ],
       role : [null, Validators.required],
       password : [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)])],
@@ -63,6 +64,11 @@ export class RegisteruserComponent implements OnInit {
   async checkthem(control: AbstractControl ) {
     this.valid = await this.emailservice.checke(control.value);
     return this.valid.is_valid ? null : { emailTaken: true };
+  }
+
+  goHome() {
+    $("#confirmationModal").modal("hide");
+        this.router.navigate(['']);
   }
 
 }

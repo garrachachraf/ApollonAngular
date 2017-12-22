@@ -1,0 +1,21 @@
+.event-item {
+    background-color: white;
+    color:black;
+    padding: 1.5em;
+    border-bottom: 1px solid #d9d9d9;
+  }
+.ngx-pagination a, .ngx-pagination button {
+  cursor: pointer;
+}
+.ngx-pagination a, .ngx-pagination button {
+  color: #0a0a0a;
+  display: block;
+  padding: 0.1875rem 0.625rem;
+  border-radius: 0;
+}
+a {
+  color: #2d7fe8;
+  cursor: pointer;
+  text-decoration: none;
+  transition: none 86ms ease-out;
+}

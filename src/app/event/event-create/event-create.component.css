@@ -1,0 +1,15 @@
+.event {
+    background-color: #222222;
+    padding: 1.5em;
+    border-bottom: 1px solid #d9d9d9;
+  }
+.wh{
+  color:whitesmoke;
+}
+
+.gallery {
+  background-color: #222222;
+  color:navajowhite;
+  padding: 1.5em;
+  border-bottom: 1px solid #d9d9d9;
+}
