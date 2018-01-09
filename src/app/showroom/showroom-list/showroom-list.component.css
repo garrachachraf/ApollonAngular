@@ -10,6 +10,7 @@
     cursor: pointer;
 }
 .showroom-list-container{
+    min-height: 900px;
     margin-top: -20px;
     background-color: #222222;
 }
