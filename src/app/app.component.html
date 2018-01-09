@@ -108,6 +108,9 @@
                                   <label for="key" class="sr-only">Password</label>
                                   <input [(ngModel)]="userCredentials.password" type="password" name="key" id="key" class="form-control" placeholder="Password">
                               </div>
+                              <div *ngIf="!isCorrect" style="color: red">
+                                Username or password are invalid
+                              </div>
                           </form>
                     </div>
               </div> <!-- /.col-xs-12 -->

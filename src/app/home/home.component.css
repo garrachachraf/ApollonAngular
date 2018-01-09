@@ -11,3 +11,6 @@
     font-size: 3em;
     opacity:1;
   }
+  .carousel-inner img{
+    width: 100%;
+  }

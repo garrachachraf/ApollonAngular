@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthenticationService } from './authentication/authentication.service';
 import { ShowroomService } from './showroom/shared/showroom.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,7 +6,7 @@ import { WishlistService } from './wishlist/shared/wishlist.service';
 import { CollectionService } from './collection/collection.service';
 
 declare var $ :any;
-var OneSignal = window['OneSignal'];
+var OneSignal = window['OneSignal'] || [];
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +17,10 @@ export class AppComponent implements OnInit {
   userCredentials = { username: "", password: "" };
   isAuthenticated: boolean = false;
   currentUser: any = null;
+  isCorrect:boolean=true;
   constructor(
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router:Router
   ){}
 
   ngOnInit() {
@@ -32,8 +35,13 @@ export class AppComponent implements OnInit {
         this.currentUser = this.authenticationService.getToken();
         this.sendTag(this.currentUser.id);
         this.closeModal("#loginModal");
+        this.isCorrect = true;
+        this.router.navigate(['profile']);
       },
-      res=> this.authenticationService.isAuthenticated(false)
+      res=>{
+        this.isCorrect = false;
+        this.authenticationService.isAuthenticated(false);
+      } 
     );
 
   }
