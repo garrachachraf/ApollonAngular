@@ -5,13 +5,13 @@ import { FormControl } from '@angular/forms';
 import {GalleriesService} from '../../services/galleries.service';
 import {Gallery} from '../../../shared/model/gallery.model';
 import { ViewEncapsulation } from '@angular/core';
-
 import {Marker} from '../../../shared/model/gallery.marker.model';
-
+import {MAP_STYLE} from '../../config/config';
 import { MapService } from  '../../services/map.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Event} from '../../../shared/model/event.model';
 import {isNull} from "util";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-galleries-list',
@@ -25,14 +25,15 @@ export class GalleriesListComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
   public searchControl: FormControl;
+  /*************/
+  styles: any = MAP_STYLE;
   /**************/
   subscription: Subscription;
   /***********************/
   galleries: Gallery[];
   markers: Marker[]= [];
   title = 'Angular4 AGM Demo';
-  lat = 40.890479;
-  lng = 11.171409;
+
   zoomValue = 5;
   iconUrl = 'http://i.imgur.com/0TctIfY.png';
   isOpen = true; //description
@@ -45,7 +46,7 @@ export class GalleriesListComponent implements OnInit {
   mapInit: Marker= new Marker('', 11.171409, 40.890479, true);
 
   constructor(
-    private mapsAPILoader: MapsAPILoader,
+    private mapsAPILoader: MapsAPILoader, private route: Router,
     private ngZone: NgZone, private galleriesService: GalleriesService, private _mapService: MapService) {
   }
 
@@ -79,14 +80,11 @@ export class GalleriesListComponent implements OnInit {
           }
 
           //set latitude, longitude and zoom
-          this.lat = place.geometry.location.lat();
-          this.lng = place.geometry.location.lng();
+          this.mapInit.latitude  = place.geometry.location.lat();
+          this.mapInit.longitude  = place.geometry.location.lng();
           //  this.formatted_address = place.formatted_address;
           //this.zoom = 14;
-          //    console.log(this.formatted_address);
-          console.log(this.lat);
-          console.log(this.lng);
-          //  console.log(this.zoom);
+
 
 
         });
@@ -110,8 +108,9 @@ export class GalleriesListComponent implements OnInit {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
+        this.mapInit.latitude  = position.coords.latitude;
+        this.mapInit.longitude  = position.coords.longitude;
+        this.zoomValue = 15 ;
       });
     }
     console.log('nzil');
@@ -127,11 +126,8 @@ export class GalleriesListComponent implements OnInit {
     this.isOpen = true;
   }
 
-  public style() {
-    console.log(new Date());
-    return {
-      fillColor: 'green',
-      strokeColor: 'green',
-    };
+
+  redirectionAdd()  {
+    this.route.navigate(['galleries/Add']);
   }
 }

@@ -1,16 +1,9 @@
-<div class="status">
-  Showing <span class="badge">{{indices?.start + 1}}</span>
-  - <span class="badge">{{indices?.end}}</span>
-  of <span class="badge">{{buffer?.length}}</span>
-  <span>({{scrollItems?.length}} nodes)</span>
-</div>
-
 <virtual-scroll
   [items]="buffer"
   (update)="scrollItems = $event"
   (end)="fetchMore($event)">
 
-  <app-galleries-list-item *ngFor="let item of scrollItems" [item]="item"> </app-galleries-list-item>
+  <app-galleries-list-item *ngFor="let item of scrollItems ,let i=index" [mine]="7" [indice]="i" [item]="item" (ondelete)="deleteResource($event)" > </app-galleries-list-item>
   <div *ngIf="loading" class="loader">Loading...</div>
 
 </virtual-scroll>

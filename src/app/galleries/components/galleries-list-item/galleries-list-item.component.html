@@ -28,10 +28,19 @@
       <h4><a href="single-property-page-1.html">{{ item.name }}</a></h4>
       <a style="cursor:pointer" class="listing-address popup-gmaps" (click)="selectedAddress(item.location)">
         <i class="fa fa-map-marker"></i>
-       {{item.location.address}}
+        {{item.location.address}}
       </a>
 
-      <a href="single-property-page-1.html" class="details button border">Details</a>
+      <a (click)="redirection(item.id)" class="details button border">Details</a>
+
+      <a class="btn btn-success" (click)="toEvent(item.id)"> Rent this gallery</a>
+      <div *ngIf=" mine === item.galleryOwner.id ">
+
+        <a  (click)="delete(item.id)" class="listing-address">
+          <i class="fa fa-trash-o"></i>
+        </a>
+      </div>
+
     </div>
 
     <ul class="listing-details">
@@ -47,5 +56,4 @@
   </div>
 
 </div>
-<a class="btn btn-success" (click)="toEvent(item.id)"> Rent this gallery</a>
 <!-- Listing Item / End -->

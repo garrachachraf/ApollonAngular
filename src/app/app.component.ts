@@ -5,7 +5,7 @@ import { WishlistService } from './wishlist/shared/wishlist.service';
 import { CollectionService } from './collection/collection.service';
 
 declare var $ :any;
-var OneSignal = window['OneSignal'];
+var OneSignal = window['OneSignal'] || [];
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -45,10 +45,10 @@ export class AppComponent implements OnInit {
   sendTag(userId: number){
     OneSignal.push(function() {
       console.log("sending");
-      OneSignal.sendTag("userId", userId);     
+      OneSignal.sendTag("userId", userId);
     });
   }
-  
+
   closeModal(a) {
     $(a).modal("hide");
   }

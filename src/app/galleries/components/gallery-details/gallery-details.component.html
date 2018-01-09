@@ -1,0 +1,278 @@
+<div *ngIf="!startEdit">
+  <div id="titlebar" class="property-titlebar margin-bottom-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12"  *ngIf="gallery">
+
+          <a (click)="redi()" class="back-to-listings"></a>
+          <div class="property-title">
+            <h2>{{ gallery.name }}<span class="property-badge">For Rent</span></h2>
+            <span>
+						<a href="#" class="listing-address">
+							<i class="fa fa-map-marker"></i>
+							{{ gallery.location.address }}
+						</a>
+					</span>
+          </div>
+
+          <div class="property-pricing">
+            <div class="property-price">${{ gallery.pricing.daily }}</div>
+            <div class="sub-price">{{ gallery.surface }} m²</div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fullwidth-property-slider margin-bottom-50">
+    <a href="../../../../assets/galleriesStyle/images/single-property-01.jpg" data-background-image="../../../../assets/galleriesStyle/images/single-property-01.jpg" class="item mfp-gallery"></a>
+    <a href="../../../../assets/galleriesStyle/images/single-property-02.jpg" data-background-image="../../../../assets/galleriesStyle/images/single-property-02.jpg" class="item mfp-gallery"></a>
+    <a href="../../../../assets/galleriesStyle/images/single-property-03.jpg" data-background-image="../../../../assets/galleriesStyle/images/single-property-03.jpg" class="item mfp-gallery"></a>
+    <a href="../../../../assets/galleriesStyle/images/single-property-04.jpg" data-background-image="../../../../assets/galleriesStyle/images/single-property-04.jpg" class="item mfp-gallery"></a>
+    <a href="../../../../assets/galleriesStyle/images/single-property-05.jpg" data-background-image="../../../../assets/galleriesStyle/images/single-property-05.jpg" class="item mfp-gallery"></a>
+    <a href="../../../../assets/galleriesStyle/images/single-property-06.jpg" data-background-image="../../../../assets/galleriesStyle/images/single-property-06.jpg" class="item mfp-gallery"></a>
+  </div>
+
+
+  <div class="container">
+    <div class="row"  >
+
+      <!-- Property Description -->
+      <div class="col-lg-8 col-md-7">
+        <div class="property-description">
+
+          <!-- Details -->
+          <h3 class="desc-headline">Details</h3>
+          <ul class="property-features margin-top-0" *ngIf="gallery">
+            <li>Max Capacity: <span>{{ gallery.maxCapacity }}</span></li>
+            <li>Pricing Hourly: <span>${{ gallery.pricing.hourly }}</span></li>
+            <li>Pricing Daily: <span>${{ gallery.pricing.daily }}</span></li>
+            <li>Pricing Weekly: <span>${{ gallery.pricing.weekly }}</span></li>
+            <li>Pricing Monthly: <span>${{ gallery.pricing.monthly }}</span></li>
+            <li>Security Deposit: <span>${{ gallery.pricing.securityDeposit }}</span></li>
+            <li>Cleaning Fee: <span>{{ gallery.pricing.cleaningFee }}</span></li>
+          </ul>
+
+          <!-- Description -->
+          <h3 class="desc-headline">Description</h3>
+          <div class="show-more" *ngIf="gallery">
+            <p>
+              {{ gallery.description }}
+            </p>
+
+            <a href="#" class="show-more-button">Show More <i class="fa fa-angle-down"></i></a>
+          </div>
+
+          <!-- Location -->
+          <h3 class="desc-headline no-border" id="location">Location</h3>
+          <div id="propertyMap-container">
+            <agm-map [latitude]="latChild" [longitude]="lngChild" [zoom]="10" (mapReady)="onReady($event)"   >
+              <agm-marker [latitude]="latChild" [longitude]="lngChild" [iconUrl]="iconUrl" >
+              </agm-marker>
+            </agm-map>
+          </div>
+
+
+          <!-- Similar Listings Container -->
+          <h3 class="desc-headline no-border margin-bottom-35 margin-top-60">Similar Properties</h3>
+
+          <!-- Layout Switcher -->
+          <div class="listings-container list-layout">
+
+            <div class="calendar" *ngIf="gallery">
+              <angular2-fullcalendar [options]="calendarOptions" (initialized)="onCalendarInit($event)"   ></angular2-fullcalendar>
+            </div>
+
+          </div>
+          <!-- Similar Listings Container / End -->
+
+        </div>
+      </div>
+      <!-- Property Description / End -->
+
+
+      <!-- Sidebar -->
+      <div class="col-lg-4 col-md-5">
+        <div class="sidebar sticky right">
+
+
+          <!-- Widget / End -->
+
+
+          <!-- Widget -->
+          <div class="widget"  >
+
+            <!-- Agent Widget
+            <div class="agent-widget" *ngIf="gallery.galleryOwner.id" >
+              <div class="agent-title">
+                <div class="agent-photo"><img src="../../../../assets/galleriesStyle/images/agent-avatar.jpg" alt="" /></div>
+                <div class="agent-details">
+                  <h4><a href="#">{{ gallery.galleryOwner.firstname }} {{ gallery.galleryOwner.lastname }}</a></h4>
+                  <span><i class="sl sl-icon-call-in"></i>(216) {{ gallery.galleryOwner.PhoneNumber }}</span>
+
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <span *ngIf="isMyGallery">
+						<a (click)="toogleEdit()" class="listing-address">
+							<i class="fa fa-pencil"></i>
+						</a>
+					</span>
+
+            </div>
+            <!-- Agent Widget / End -->
+
+          </div>
+          <!-- Widget / End -->
+
+
+        </div>
+      </div>
+      <!-- Sidebar / End -->
+
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12" *ngIf="startEdit">
+  <form (ngSubmit)="Save()" #myform="ngForm">
+    <div class="submit-page">
+
+
+      <h3>Basic Information</h3>
+      <div class="submit-section">
+
+        <!-- Title -->
+        <div class="form">
+          <h5>Gallery Name<i class="tip" data-tip-content="Type title that will also contains an unique feature of your property (e.g. renovated, air contidioned)"></i></h5>
+          <input class="search-field" type="text" name="gallery.name" [(ngModel)]="gallery.name"/>
+        </div>
+
+        <!-- Row -->
+        <div class="row with-forms">
+
+          <!-- Status -->
+          <div class="col-md-6">
+            <h5>Max Capacity</h5>
+            <input type="number" name="gallery.maxcapacity" [(ngModel)]="gallery.maxCapacity" />
+          </div>
+
+          <!-- Type -->
+          <div class="col-md-6">
+            <h5>Surface</h5>
+            <input type="number" data-unit="Sq Ft" name="gallery.surface" [(ngModel)]="gallery.surface" />
+          </div>
+
+        </div>
+        <!-- Row / End -->
+
+
+        <!-- Row -->
+        <div class="row with-forms">
+
+          <!-- Price -->
+          <div class="col-md-4">
+            <h5>Cleaning fee <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+            <div class="select-input disabled-first-option">
+              <input type="text" [(ngModel)]="gallery.pricing.cleaningFee" name="gallery.pricing.cleaningFee" data-unit="USD">
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <h5>Security deposit <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+            <div class="select-input disabled-first-option">
+              <input type="text" [(ngModel)]="gallery.pricing.securityDeposit" name="gallery.pricing.securityDeposit" data-unit="USD">
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <h5>Monthly <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+            <div class="select-input disabled-first-option">
+              <input type="text" [(ngModel)]="gallery.pricing.monthly" name="gallery.pricing.monthly" data-unit="USD">
+            </div>
+          </div>
+
+        </div>
+        <!-- Row / End -->
+
+        <!-- Row -->
+        <div class="row with-forms">
+
+          <!-- Price -->
+          <div class="col-md-4">
+            <h5>Daily <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+            <div class="select-input disabled-first-option">
+              <input type="text" [(ngModel)]="gallery.pricing.daily" name="gallery.pricing.daily" data-unit="USD">
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <h5>Weekly <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+            <div class="select-input disabled-first-option">
+              <input type="text" [(ngModel)]="gallery.pricing.weekly" name="gallery.pricing.weekly" data-unit="USD">
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <h5>Hourly <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+            <div class="select-input disabled-first-option">
+              <input type="text" [(ngModel)]="gallery.pricing.hourly" name="gallery.pricing.hourly" data-unit="USD">
+            </div>
+          </div>
+
+        </div>
+        <!-- Row / End -->
+
+      </div>
+      <!-- Section / End -->
+
+
+      <!-- Section -->
+      <h3>Location</h3>
+      <div id="map" data-map-zoom="1" data-map-scroll="true" *ngIf="gallery.location.longitude && gallery.location.latitude">
+        <agm-map [latitude]="gallery.location.latitude" [longitude]="gallery.location.longitude" [zoom]="10" (mapReady)="onReady($event)"   >
+          <!-- <agm-data-layer *ngIf="geoJsonReady" [geoJson]="geoJson" [style]="style"></agm-data-layer> -->
+          <!-- <agm-circle [latitude]="lat" [longitude]="lng" [radius]="radius" [fillColor]="fillColor"></agm-circle> -->
+          <agm-marker  [latitude]="gallery.location.latitude" [longitude]="gallery.location.longitude" [iconUrl]="icon" [markerDraggable]="true" (dragEnd)="markerDragEnd(gallery.location ,$event)">
+          </agm-marker>
+        </agm-map>
+      </div>
+      <div class="col-md-4">
+        <h5>Adress <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+        <div class="select-input disabled-first-option">
+          <input type="text" [(ngModel)]="gallery.location.address" name="gallery.location.address">
+        </div>
+      </div>
+      <!-- Section / End -->
+
+
+      <!-- Section -->
+      <h3>Detailed Information</h3>
+      <div class="submit-section">
+
+        <!-- Description -->
+        <div class="form">
+          <h5>Description</h5>
+          <textarea class="WYSIWYG" name="gallery.description" [(ngModel)]="gallery.description" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+        </div>
+
+        <!-- Row -->
+        <div class="row with-forms">
+
+
+
+        </div>
+        <!-- Row / End -->
+
+
+      </div>
+      <!-- Section / End -->
+
+
+    </div>
+
+    <button class="button preview margin-top-5" type="submit" >update</button>
+  </form>
+</div>

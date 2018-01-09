@@ -12,4 +12,14 @@ export class GalleriesService extends DataService<Gallery> {
   constructor(http: HttpClient) {
     super(http, 'http://127.0.0.1:18080/Apollo-web/app/galleries/v2');
   }
+  updateGallery(g: Gallery) {
+    return this.http.post(this.endpointUrl, g ,{responseType:'text'})
+  }
+  deleteGallery(g: number) {
+    return this.http.delete(this.endpointUrl + '/' + g,{responseType:'text'});
+  }
+  addGallery(g: Gallery) {
+    return this.http.put(this.endpointUrl + '/' , g,{ responseType:'text'});
+  }
+
 }

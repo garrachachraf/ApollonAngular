@@ -5,7 +5,7 @@ import { AuthenticationService } from './authentication/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './authentication/token.interceptor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RecaptchaModule } from "ng-recaptcha";
+import { RecaptchaModule } from 'ng-recaptcha';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -42,6 +42,9 @@ import { GalleriesListComponent } from './galleries/components/galleries-list/ga
 import { GalleriesListItemComponent } from './galleries/components/galleries-list-item/galleries-list-item.component';
 import { GalleriesListScrollerComponent } from './galleries/components/galleries-list-scroller/galleries-list-scroller.component';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
+import { GalleryDetailsComponent } from './galleries/components/gallery-details/gallery-details.component';
+import { CalendarModule } from 'ap-angular2-fullcalendar';
+import { AddGalleryComponent } from './galleries/components/add-gallery/add-gallery.component';
 import { Routes, RouterModule } from '@angular/router';
 import {TicketComponent} from './ticket/ticket.component';
 import {EventComponent} from './event/event.component';
@@ -67,9 +70,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path : 'update' , component: ProfileUpdateComponent , canActivate: [AuthGuard]},
-  { path : 'galleries' , component: GalleriesListComponent },
   { path : 'update' , component: ProfileUpdateComponent },
   { path : 'galleries' , component: GalleriesListComponent },
+  { path : 'gallery/:id' , component: GalleryDetailsComponent },
+  { path : 'galleries/Add' , component: AddGalleryComponent },
   { path: 'showrooms', component: ShowroomListComponent, pathMatch: 'full'  },
   { path: 'artworks', component: CreateArtworkComponent, pathMatch: 'full' },
   { path: 'collection', component: CollectionComponent , pathMatch: 'full' },
@@ -99,11 +103,11 @@ const routes: Routes = [
     OrderComponent,
     ShowroomFormComponent,
     ProfileUpdateComponent,
-
     GalleriesListComponent,
     GalleriesListItemComponent,
     GalleriesListScrollerComponent,
-
+    GalleryDetailsComponent,
+    AddGalleryComponent,
     TicketComponent,
     EventComponent,
     EventCreateComponent,
@@ -121,16 +125,14 @@ const routes: Routes = [
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
-
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs",
-      libraries: ["places"]
+      apiKey: 'AIzaSyDxzZBbmKANs1lD8-rwULOgKGcXjkK7jTs',
+      libraries: ['places']
     }),
     VirtualScrollModule,
-
-    RecaptchaModule.forRoot()
-
-
+    CalendarModule,
+    RecaptchaModule.forRoot(),
     PdfViewerModule,
     MyDatePickerModule,
     NgxPaginationModule,

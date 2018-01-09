@@ -52,5 +52,13 @@ export class GalleriesListScrollerComponent implements OnChanges {
       }, 1000 + Math.random() * 1000);
     });
   }
+  deleteResource(id: number) {
+    this.scrollItems.splice(id,1);
+    this.items.splice(id,1);
+    this.reset();
+    console.log(id);
+    console.log("click");
+  }
+
 
 }

@@ -1,0 +1,143 @@
+<div class="container" >
+  <div class="row"  >
+
+    <div class="col-md-12" >
+      <form (ngSubmit)="Add()" #myform="ngForm">
+        <div class="submit-page">
+
+
+          <h3>Basic Information</h3>
+          <div class="submit-section">
+
+            <!-- Title -->
+            <div class="form">
+              <h5>Gallery Name<i class="tip" data-tip-content="Type title that will also contains an unique feature of your property (e.g. renovated, air contidioned)"></i></h5>
+              <input class="search-field" type="text" name="gallery.name" [(ngModel)]="gallery.name"/>
+            </div>
+
+            <!-- Row -->
+            <div class="row with-forms">
+
+              <!-- Status -->
+              <div class="col-md-6">
+                <h5>Max Capacity</h5>
+                <input type="number" name="gallery.maxcapacity" [(ngModel)]="gallery.maxCapacity" />
+              </div>
+
+              <!-- Type -->
+              <div class="col-md-6">
+                <h5>Surface</h5>
+                <input type="number" data-unit="Sq Ft" name="gallery.surface" [(ngModel)]="gallery.surface" />
+              </div>
+
+            </div>
+            <!-- Row / End -->
+
+
+            <!-- Row -->
+            <div class="row with-forms">
+
+              <!-- Price -->
+              <div class="col-md-4">
+                <h5>Cleaning fee <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+                <div class="select-input disabled-first-option">
+                  <input type="text" [(ngModel)]="gallery.pricing.cleaningFee" name="gallery.pricing.cleaningFee" data-unit="USD">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Security deposit <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+                <div class="select-input disabled-first-option">
+                  <input type="text" [(ngModel)]="gallery.pricing.securityDeposit" name="gallery.pricing.securityDeposit" data-unit="USD">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Monthly <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+                <div class="select-input disabled-first-option">
+                  <input type="text" [(ngModel)]="gallery.pricing.monthly" name="gallery.pricing.monthly" data-unit="USD">
+                </div>
+              </div>
+
+            </div>
+            <!-- Row / End -->
+
+            <!-- Row -->
+            <div class="row with-forms">
+
+              <!-- Price -->
+              <div class="col-md-4">
+                <h5>Daily <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+                <div class="select-input disabled-first-option">
+                  <input type="text" [(ngModel)]="gallery.pricing.daily" name="gallery.pricing.daily" data-unit="USD">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Weekly <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+                <div class="select-input disabled-first-option">
+                  <input type="text" [(ngModel)]="gallery.pricing.weekly" name="gallery.pricing.weekly" data-unit="USD">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Hourly <i class="tip" data-tip-content="Type overall or monthly price if property is for rent"></i></h5>
+                <div class="select-input disabled-first-option">
+                  <input type="text" [(ngModel)]="gallery.pricing.hourly" name="gallery.pricing.hourly" data-unit="USD">
+                </div>
+              </div>
+
+            </div>
+            <!-- Row / End -->
+
+          </div>
+          <!-- Section / End -->
+
+
+          <!-- Section -->
+          <h3>Location</h3>
+          <div class="form-group">
+            <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl"  size="100">
+          </div>
+          <div id="map" data-map-zoom="1" data-map-scroll="true" >
+            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="10"    >
+              <!-- <agm-data-layer *ngIf="geoJsonReady" [geoJson]="geoJson" [style]="style"></agm-data-layer> -->
+              <!-- <agm-circle [latitude]="lat" [longitude]="lng" [radius]="radius" [fillColor]="fillColor"></agm-circle> -->
+              <agm-marker  [latitude]="gallery.location.latitude" [longitude]="gallery.location.longitude" [iconUrl]="icon" [markerDraggable]="true" (dragEnd)="markerDragEnd(gallery.location ,$event)">
+              </agm-marker>
+            </agm-map>
+          </div>
+
+          <!-- Section / End -->
+
+
+          <!-- Section -->
+          <h3>Detailed Information</h3>
+          <div class="submit-section">
+
+            <!-- Description -->
+            <div class="form">
+              <h5>Description</h5>
+              <textarea class="WYSIWYG" name="gallery.description" [(ngModel)]="gallery.description" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+            </div>
+
+            <!-- Row -->
+            <div class="row with-forms">
+
+
+
+            </div>
+            <!-- Row / End -->
+            <app-media-upload (eventemetter)="apollonavartar($event)"></app-media-upload>
+
+          </div>
+          <!-- Section / End -->
+
+
+          <button class="button preview margin-top-5" type="submit" >Add</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
